@@ -3,6 +3,7 @@ from numpy.random import rand
 from tqdm import tqdm
 from FS.functionHO import Fun
 from scipy.stats.qmc import Halton
+from scipy.stats.qmc import Sobol
 # 初始化函数
 def initialization(N, Dim, UB, LB):
     if not isinstance(UB[0], list):
@@ -33,6 +34,22 @@ def binary_conversion(X, thres, N, dim):
             else:
                 Xbin[i, d] = 0
     return Xbin
+
+def sobol_initialization(N, Dim, UB, LB):
+    sampler = Sobol(d=Dim, scramble=True)
+    m = int(np.log2(N))
+    X = sampler.random_base2(m=m)
+    
+    # 如果生成的样本数少于N，用随机样本填充剩余部分
+    if X.shape[0] < N:
+        additional_samples = N - X.shape[0]
+        random_samples = np.random.rand(additional_samples, Dim)
+        random_samples = LB + random_samples * (UB - LB)
+        X = np.vstack((X, random_samples))
+    
+    X = LB + X * (UB - LB)
+    print(X.shape)
+    return X
 
 # 边界处理
 def boundary(x, lb, ub):

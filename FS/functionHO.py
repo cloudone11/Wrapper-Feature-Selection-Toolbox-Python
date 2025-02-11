@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
-
+# from utils import gpu_knn
 
 # error rate
 def error_rate(xtrain, ytrain, x, opts):
@@ -34,7 +34,7 @@ def error_rate(xtrain, ytrain, x, opts):
 # Error rate & Feature size
 def Fun(xtrain, ytrain, x, opts):
     # Parameters
-    alpha    = 0.99
+    alpha    = 0.90
     beta     = 1 - alpha
     # Original feature size
     max_feat = len(x)
@@ -48,7 +48,7 @@ def Fun(xtrain, ytrain, x, opts):
         error = error_rate(xtrain, ytrain, x, opts)
         # Objective function
         # cost  = alpha * error + beta * (num_feat / max_feat)
-        cost  = alpha * error + beta * (num_feat / max_feat) * 10
+        cost  = alpha * error + beta * (num_feat / max_feat)
     return cost
 
 

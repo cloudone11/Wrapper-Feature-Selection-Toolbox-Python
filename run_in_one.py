@@ -5,7 +5,8 @@ from sklearn.model_selection import KFold
 from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, precision_score, matthews_corrcoef
 import importlib
 import json
-
+from multiprocessing import Pool
+from tqdm import tqdm
 # Load data
 data = pd.read_csv('merged_df12.csv')
 data = data.dropna()  # 删除包含缺失值的行
@@ -69,28 +70,58 @@ def run_algorithm(algo, train_index, test_index):
         "Specificity": specificity,
         "MCC": mcc,
         "Number of Features": num_feat,
+        "selected_features": sf.tolist(),
         "Convergence Curve": curve
     }
 
 # Run the algorithms with 10-fold cross-validation and collect results
 results = []
 kf = KFold(n_splits=10, shuffle=True, random_state=42)  # 10-fold cross-validation
+if 1:
+    for algo in algorithms:
+        print(f"Running experiment with algorithm: {algo}")
+        fold_results = []
+        for i in range(10):
+            print(f"Running time {i + 1}/10")
+            for fold, (train_index, test_index) in enumerate(kf.split(feat)):
+                print(f"Running fold {fold + 1}/10")
+                result = run_algorithm(algo, train_index, test_index)
+                result['Fold'] = fold + 1  # Add fold number to result
+                result['Run'] = i + 1
+                fold_results.append(result)
+        results.extend(fold_results)
 
-for algo in algorithms:
-    print(f"Running experiment with algorithm: {algo}")
-    fold_results = []
-    for i in range(10):
-        print(f"Running time {i + 1}/10")
-        for fold, (train_index, test_index) in enumerate(kf.split(feat)):
-            print(f"Running fold {fold + 1}/10")
-            result = run_algorithm(algo, train_index, test_index)
-            result['Fold'] = fold + 1  # Add fold number to result
-            result['Run'] = i + 1
-            fold_results.append(result)
-    results.extend(fold_results)
+    # Save results to JSON file
+    with open("experiment_results.json", "w") as json_file:
+        json.dump(results, json_file, indent=4)
 
-# Save results to JSON file
-with open("experiment_results.json", "w") as json_file:
-    json.dump(results, json_file, indent=4)
+    print("Experiment results saved to experiment_results.json")
 
-print("Experiment results saved to experiment_results.json")
+if 0:
+    # Function to run the algorithm and collect metrics
+    def run_algorithm_with_indices(args):
+        algo, train_index, test_index, fold, run = args
+        result = run_algorithm(algo, train_index, test_index)
+        result['Fold'] = fold + 1  # Add fold number to result
+        result['Run'] = run + 1
+        return result
+
+    # Run the algorithms with 10-fold cross-validation and collect results
+    results = []
+    kf = KFold(n_splits=10, shuffle=True, random_state=42)  # 10-fold cross-validation
+
+    for algo in algorithms:
+        print(f"Running experiment with algorithm: {algo}")
+        fold_results = []
+        for i in tqdm(range(10), desc=f"Run {i + 1}/10", unit="run"):
+            print(f"Running time {i + 1}/10")
+            args_list = [(algo, train_index, test_index, fold, i) for fold, (train_index, test_index) in enumerate(kf.split(feat))]
+            with Pool() as pool:
+                fold_results.extend(pool.map(run_algorithm_with_indices, args_list))
+        results.extend(fold_results)
+
+    # Save results to JSON file
+    with open("experiment_results.json", "w") as json_file:
+        json.dump(results, json_file, indent=4)
+
+    print("Experiment results saved to experiment_results.json")

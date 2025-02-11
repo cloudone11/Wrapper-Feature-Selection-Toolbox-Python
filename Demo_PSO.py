@@ -6,13 +6,35 @@ from FS.ibka3h import jfs   # change this to switch algorithm
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, precision_score, f1_score
 
+import pandas as pd
+import numpy as np
+
 # Load data
 data = pd.read_csv('merged_df12.csv')
 
-data = data.dropna()  # 删除包含缺失值的行
+# 删除包含缺失值的行
+data = data.dropna()
+
+# 将数据转换为 NumPy 数组
 data = data.values
-feat = np.asarray(data[:, 0:-1])
-label = np.asarray(data[:, -1])
+
+# 分离特征和标签
+feat = np.asarray(data[:, :-1])  # 特征
+label = np.asarray(data[:, -1])  # 标签
+
+# 归一化特征到 [-1, 1]
+min_feat = np.min(feat, axis=0)  # 每列的最小值
+max_feat = np.max(feat, axis=0)  # 每列的最大值
+
+# 检查是否存在 max_feat == min_feat 的情况
+# 如果存在，将这些列的值设置为 0（或其他默认值）
+range_feat = max_feat - min_feat
+range_feat[range_feat == 0] = 1  # 避免除以零
+
+# 归一化
+feat = -1 + 2 * (feat - min_feat) / range_feat
+
+# 此时 feat 已经归一化到 [-1, 1]，可以继续后续处理
 
 # split data into train & validation (70 -- 30)
 xtrain, xtest, ytrain, ytest = train_test_split(feat, label, test_size=0.1, stratify=label)
@@ -47,12 +69,12 @@ print("Accuracy:", 100 * Acc)
 # confusion matrix
 tn, fp, fn, tp = confusion_matrix(y_valid, y_pred).ravel()
 # convert label of y_valid and y_pred to 'b' or 'g'
-
-sensitivity = recall_score(y_valid, y_pred, pos_label='AD')
-precision = precision_score(y_valid, y_pred, pos_label='AD')
+selected_features = fmdl['sf']
+sensitivity = recall_score(y_valid, y_pred, pos_label='MCI')
+precision = precision_score(y_valid, y_pred, pos_label='MCI')
 specificity = tn / (tn + fp)
 mcc = (tp * tn - fp * fn) / np.sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))
-
+print("selected features:", selected_features)
 print("Sensitivity:", sensitivity)
 print("Precision:", precision)
 print("Specificity:", specificity)
