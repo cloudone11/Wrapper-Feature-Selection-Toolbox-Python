@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="utf-8"?>
+<S>
+   <SPMpreprocessing>
+      <Affine>[1.10858052191178 0.0255187975233659 0.0468041968417987 1.41036291362711;-0.0454172386078944 1.06730811006713 0.353855583871364 -8.83914406649679;-0.0416075196193264 -0.402367124500772 1.16930673071567 -29.6986892221167;0 0 0 1]</Affine>
+      <Affine0>[1.10858052191178 0.0255187975233659 0.0468041968417987 1.41036291362711;-0.0454172386078944 1.06730811006713 0.353855583871364 -8.83914406649679;-0.0416075196193264 -0.402367124500772 1.16930673071567 -29.6986892221167;0 0 0 1]</Affine0>
+      <lkp>[1 2 3 3 4 4 4 5 5 5 5 6 6]</lkp>
+      <mn>[327.902261227785 409.772435970306 110.113205981892 210.494160277026 131.019183083212 31.6541888545722 63.9639684094192 261.192575530672 578.532628778846 439.148917495317 316.894017772384 123.454633208044 17.5890756113143]</mn>
+      <vr>[1235.69263559217;269.977953574483;362.380978083589;3225.08247890937;1534.91650728465;156.452725214558;397.553033816076;4737.12068981839;8474.0154161698;12313.1170792172;3334.77703667005;3391.58938741405;74.3921271541107]</vr>
+      <ll>-5.72214603424072</ll>
+      <Affine_translation>[1.41036291362711 -8.83914406649679 -29.6986892221167]</Affine_translation>
+      <Affine_rotation>[0.359407936270129 0.0495032141103091 0.0251141928848693]</Affine_rotation>
+      <Affine_scaling>[1.11029036058764 1.14091520163184 1.21987488344708]</Affine_scaling>
+      <Affine_shearing>[-0.00279299293813466 -0.0104132473011475 -0.0704156098200333]</Affine_shearing>
+      <Affine0_translation>[1.41036291362711 -8.83914406649679 -29.6986892221167]</Affine0_translation>
+      <Affine0_rotation>[0.359407936270129 0.0495032141103091 0.0251141928848693]</Affine0_rotation>
+      <Affine0_scaling>[1.11029036058764 1.14091520163184 1.21987488344708]</Affine0_scaling>
+      <Affine0_shearing>[-0.00279299293813466 -0.0104132473011475 -0.0704156098200333]</Affine0_shearing>
+   </SPMpreprocessing>
+   <filedata>
+      <help>Structure directory and file names. \n logdir .. path for log file \n rawdir .. origin directory of the RAW data \n BIDSfolder .. relative path to the main result directory \n BIDSdir .. absolution (full) path to the result directory \n</help>
+      <rawdir>C:\Users\cloud\Desktop</rawdir>
+      <path>C:\Users\cloud\Desktop</path>
+      <file>IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01</file>
+      <fname>C:\Users\cloud\Desktop\IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01.nii</fname>
+      <F>C:\Users\cloud\Desktop\IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01.nii</F>
+      <Fm>C:\Users\cloud\Desktop\mri\mIXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01.nii</Fm>
+      <Fp0>C:\Users\cloud\Desktop\mri\p0IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01.nii</Fp0>
+      <fnames>C:\Users\cloud\Desktop/..I414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01</fnames>
+   </filedata>
+   <parameter>
+      <opts>
+         <tpm>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\tpm\TPM.nii</item>
+         </tpm>
+         <ngaus>[1 1 2 3 4 2]</ngaus>
+         <affreg>mni</affreg>
+         <warpreg>[0 0.001 0.5 0.05 0.2]</warpreg>
+         <tol>0.0001</tol>
+         <accstr>0.5</accstr>
+         <biasstr>0.5</biasstr>
+         <biasreg>0.001</biasreg>
+         <biasfwhm>60</biasfwhm>
+         <samp>3</samp>
+         <redspmres>0</redspmres>
+         <fwhm>1</fwhm>
+         <biasacc>0.5</biasacc>
+      </opts>
+      <extopts>
+         <uhrlim>1.4</uhrlim>
+         <gcutstr>2</gcutstr>
+         <cleanupstr>0.5</cleanupstr>
+         <NCstr>-Inf</NCstr>
+         <LASstr>0.5</LASstr>
+         <BVCstr>0.5</BVCstr>
+         <regstr>0.5</regstr>
+         <WMHC>2</WMHC>
+         <WMHCstr>0.5</WMHCstr>
+         <SLC>0</SLC>
+         <mrf>1</mrf>
+         <restype>optimal</restype>
+         <resval>[1 0.3]</resval>
+         <bids_folder>..\derivatives\CAT12.9_2577</bids_folder>
+         <bids_yes>0</bids_yes>
+         <nproc>4</nproc>
+         <species>human</species>
+         <APP>1070</APP>
+         <setCOM>1</setCOM>
+         <vox>1.5</vox>
+         <bb>12</bb>
+         <shootingsurf>Template_T1</shootingsurf>
+         <pth_templates>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym</pth_templates>
+         <darteltpm>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_1_Dartel.nii</item>
+         </darteltpm>
+         <shootingtpm>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_0_GS.nii</item>
+         </shootingtpm>
+         <shootingT1>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_T1_masked.nii</item>
+         </shootingT1>
+         <brainmask>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\brainmask.nii</item>
+         </brainmask>
+         <T1>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\T1.nii</item>
+         </T1>
+         <cat12atlas>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\cat.nii</item>
+         </cat12atlas>
+         <pbtres>0.5</pbtres>
+         <SRP>22</SRP>
+         <reduce_mesh>1</reduce_mesh>
+         <vdist>2</vdist>
+         <pbtlas>0</pbtlas>
+         <thick_measure>1</thick_measure>
+         <thick_limit>5</thick_limit>
+         <close_parahipp>1</close_parahipp>
+         <scale_cortex>0.7</scale_cortex>
+         <add_parahipp>0.1</add_parahipp>
+         <colormap>BCGWHw</colormap>
+         <report/>
+         <verb>2</verb>
+         <ignoreErrors>1</ignoreErrors>
+         <expertgui>0</expertgui>
+         <subfolders>1</subfolders>
+         <experimental>0</experimental>
+         <print>2</print>
+         <fontsize>8</fontsize>
+         <send_info>1</send_info>
+         <gifti_dat>1</gifti_dat>
+         <atlas>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\neuromorphometrics.nii</td>
+               <td>0</td>
+               <td>
+                  <item>csf</item>
+                  <item>gm</item>
+                  <item>wm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\lpba40.nii</td>
+               <td>0</td>
+               <td>
+                  <item>gm</item>
+                  <item>wm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\cobra.nii</td>
+               <td>0</td>
+               <td>
+                  <item>gm</item>
+                  <item>wm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\hammers.nii</td>
+               <td>0</td>
+               <td>
+                  <item>csf</item>
+                  <item>gm</item>
+                  <item>wm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\thalamus.nii</td>
+               <td>0</td>
+               <td>
+                  <item>gm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\thalamic_nuclei.nii</td>
+               <td>0</td>
+               <td>
+                  <item>gm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\suit.nii</td>
+               <td>0</td>
+               <td>
+                  <item>gm</item>
+                  <item>wm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\ibsr.nii</td>
+               <td>0</td>
+               <td>
+                  <item>csf</item>
+                  <item>gm</item>
+                  <item>wm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\aal3.nii</td>
+               <td>1</td>
+               <td>
+                  <item>gm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\mori.nii</td>
+               <td>1</td>
+               <td>
+                  <item>gm</item>
+                  <item>wm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\anatomy3.nii</td>
+               <td>1</td>
+               <td>
+                  <item>gm</item>
+                  <item>wm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\julichbrain.nii</td>
+               <td>1</td>
+               <td>
+                  <item>gm</item>
+                  <item>wm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Tian_Subcortex_S4_7T.nii</td>
+               <td>1</td>
+               <td>
+                  <item>gm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Schaefer2018_100Parcels_17Networks_order.nii</td>
+               <td>1</td>
+               <td>
+                  <item>gm</item>
+                  <item>wm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Schaefer2018_200Parcels_17Networks_order.nii</td>
+               <td>1</td>
+               <td>
+                  <item>gm</item>
+                  <item>wm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Schaefer2018_400Parcels_17Networks_order.nii</td>
+               <td>1</td>
+               <td>
+                  <item>gm</item>
+                  <item>wm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+            <tr>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Schaefer2018_600Parcels_17Networks_order.nii</td>
+               <td>1</td>
+               <td>
+                  <item>gm</item>
+                  <item>wm</item>
+               </td>
+               <td>[false]</td>
+            </tr>
+         </atlas>
+         <satlas>
+            <tr>
+               <td>Desikan</td>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\atlases_surfaces\lh.aparc_a2009s.freesurfer.annot</td>
+               <td>0</td>
+               <td>1</td>
+            </tr>
+            <tr>
+               <td>Destrieux</td>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\atlases_surfaces\lh.aparc_DK40.freesurfer.annot</td>
+               <td>0</td>
+               <td>1</td>
+            </tr>
+            <tr>
+               <td>HCP</td>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\atlases_surfaces\lh.aparc_HCP_MMP1.freesurfer.annot</td>
+               <td>0</td>
+               <td>0</td>
+            </tr>
+            <tr>
+               <td>Schaefer2018_100P_17N</td>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\atlases_surfaces\lh.Schaefer2018_100Parcels_17Networks_order.annot</td>
+               <td>1</td>
+               <td>0</td>
+            </tr>
+            <tr>
+               <td>Schaefer2018_200P_17N</td>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\atlases_surfaces\lh.Schaefer2018_200Parcels_17Networks_order.annot</td>
+               <td>0</td>
+               <td>0</td>
+            </tr>
+            <tr>
+               <td>Schaefer2018_400P_17N</td>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\atlases_surfaces\lh.Schaefer2018_400Parcels_17Networks_order.annot</td>
+               <td>1</td>
+               <td>0</td>
+            </tr>
+            <tr>
+               <td>Schaefer2018_600P_17N</td>
+               <td>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\atlases_surfaces\lh.Schaefer2018_600Parcels_17Networks_order.annot</td>
+               <td>1</td>
+               <td>0</td>
+            </tr>
+         </satlas>
+         <LAB>
+            <NB>0</NB>
+            <CT>1</CT>
+            <CB>3</CB>
+            <BG>5</BG>
+            <BV>7</BV>
+            <TH>9</TH>
+            <ON>11</ON>
+            <MB>13</MB>
+            <BS>13</BS>
+            <VT>15</VT>
+            <NV>17</NV>
+            <HC>19</HC>
+            <HD>21</HD>
+            <HI>23</HI>
+            <PH>25</PH>
+            <LE>27</LE>
+         </LAB>
+         <new_release>0</new_release>
+         <lazy>0</lazy>
+         <affmod>0</affmod>
+         <restypes>
+            <optimal>[1 0.3]</optimal>
+         </restypes>
+         <LASmyostr>0</LASmyostr>
+         <shooting>
+            <shootingtpm>
+               <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_0_GS.nii</item>
+            </shootingtpm>
+            <regstr>0.5</regstr>
+         </shooting>
+         <darteltpms>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_1_Dartel.nii</item>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_2_Dartel.nii</item>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_3_Dartel.nii</item>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_4_Dartel.nii</item>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_5_Dartel.nii</item>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_6_Dartel.nii</item>
+         </darteltpms>
+         <shootingtpms>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_0_GS.nii</item>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_1_GS.nii</item>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_2_GS.nii</item>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_3_GS.nii</item>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_4_GS.nii</item>
+         </shootingtpms>
+         <templates>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_0_GS.nii</item>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_1_GS.nii</item>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_2_GS.nii</item>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_3_GS.nii</item>
+            <item>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\templates_MNI152NLin2009cAsym\Template_4_GS.nii</item>
+         </templates>
+         <inv_weighting>0</inv_weighting>
+         <AMAPframing>1</AMAPframing>
+      </extopts>
+   </parameter>
+   <qualitymeasures>
+      <software>
+         <version_segment>1639</version_segment>
+      </software>
+      <SurfaceEulerNumber>18</SurfaceEulerNumber>
+      <SurfaceDefectArea>0.672193195938215</SurfaceDefectArea>
+      <SurfaceDefectNumber>8.5</SurfaceDefectNumber>
+      <SurfaceIntensityRMSE>0.0717645660042763</SurfaceIntensityRMSE>
+      <SurfacePositionRMSE>0.0727027878165245</SurfacePositionRMSE>
+      <res_vx_vol>[0.937499966783885 0.937499977397356 1.20000149972344]</res_vx_vol>
+      <res_vx_voli>[0.937499908117187 0.937499976160743 1.20000149921556]</res_vx_voli>
+      <res_RMS>1.03244305648921</res_RMS>
+      <res_BB>0</res_BB>
+      <res_ECR>0.392691612243652</res_ECR>
+      <tissue_mn>[0.551558136940002 113.314788818359 288.304962158203 427.812225341797]</tissue_mn>
+      <tissue_mnr>[0.00128925289027393 0.264870375394821 0.673905372619629 1]</tissue_mnr>
+      <tissue_weighting>T1</tissue_weighting>
+      <tissue_std>[0.418294342634688 0.0984945443739716 0.0875859162376338 0.0535780564884845]</tissue_std>
+      <tissue_stdr>[0.000979014323092997 0.000230525649385527 0.000204994095838629 0.000125398990348913]</tissue_stdr>
+      <contrast>112.908790588379</contrast>
+      <contrastr>0.26392138004303</contrastr>
+      <NCR>0.0922620096243918</NCR>
+      <ICR>0.192843809723854</ICR>
+   </qualitymeasures>
+   <qualityratings>
+      <res_vx_vol>[1.87499993356777 1.87499995479471 2.40000299944688]</res_vx_vol>
+      <res_RMS>2.06488611297842</res_RMS>
+      <res_ECR>2.52966642379761</res_ECR>
+      <res_BB>1</res_BB>
+      <tissue_mn>[1.39770579338074 8.62400054931641 8.62400054931641 8.62400054931641]</tissue_mn>
+      <tissue_std>[6.47519889841856 1.00021598454055 1.01467249617614 1.20262978029157]</tissue_std>
+      <contrast>-1687.6318359375</contrast>
+      <contrastr>2.04117918014526</contrastr>
+      <NCR>1.65549827195509</NCR>
+      <ICR>0.938104689121246</ICR>
+      <SurfaceEulerNumber>1.81632653061224</SurfaceEulerNumber>
+      <SurfaceDefectArea>1.16804829898455</SurfaceDefectArea>
+      <SurfaceDefectNumber>1.425</SurfaceDefectNumber>
+      <SurfaceIntensityRMSE>1.4352912902832</SurfaceIntensityRMSE>
+      <SurfacePositionRMSE>1.45405578613281</SurfacePositionRMSE>
+      <SIQR>2.26304736322502</SIQR>
+      <SIQR3rms2>2.26304736322502</SIQR3rms2>
+      <SIQR4rms2>1.88968792472842</SIQR4rms2>
+      <SIQR4rms8>2.18319272951968</SIQR4rms8>
+      <IQR>1.931183568971</IQR>
+   </qualityratings>
+   <ratings_help>
+      <qualitymeasures>
+         <res_vx_vol>voxel dimensions</res_vx_vol>
+         <res_RMS>RMS error of voxel size</res_RMS>
+         <res_ECR>normalized gradient slope of the white matter boundary</res_ECR>
+         <res_BB>brain next to the image boundary</res_BB>
+         <tissue_mn>mean within the tissue classes</tissue_mn>
+         <tissue_std>standard deviation within the tissue classes</tissue_std>
+         <contrast>contrast between tissue classes</contrast>
+         <contrastr>contrast between tissue classes</contrastr>
+         <NCR>noise to contrast ratio</NCR>
+         <ICR>inhomogeneity to contrast ratio</ICR>
+         <SurfaceEulerNumber>average Euler number (characteristic)</SurfaceEulerNumber>
+         <SurfaceDefectArea>average area of topological defects</SurfaceDefectArea>
+         <SurfaceDefectNumber>average number of defects</SurfaceDefectNumber>
+         <SurfaceIntensityRMSE>RMSE of the expected boundary intensity Ym of the IS, OS, and CS</SurfaceIntensityRMSE>
+         <SurfacePositionRMSE>RMSE of the expected boundary position Ypp of the IS, OS, and CS</SurfacePositionRMSE>
+         <SurfaceSelfIntersections>Percentual area of self-intersections of the IS and OS.</SurfaceSelfIntersections>
+      </qualitymeasures>
+      <subjectmeasures>
+         <vol_TIV>total intracranial volume (GM+WM+VT)</vol_TIV>
+         <vol_rel_CGW>relative tissue volume (CSF,GM,WM)</vol_rel_CGW>
+         <vol_rel_WMH>relative WMH volume</vol_rel_WMH>
+         <surf_TSA>total surface area</surf_TSA>
+      </subjectmeasures>
+   </ratings_help>
+   <software>
+      <version_segment>1639</version_segment>
+      <system>WIN</system>
+      <version_spm>7771</version_spm>
+      <version_matlab>24.1</version_matlab>
+      <version_cat>12.9</version_cat>
+      <revision_cat>2577</revision_cat>
+      <function>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\cat_vol_qa202205.m</function>
+      <markdefs>C:\Program Files\MATLAB\R2024a\toolbox\spm12\toolbox\cat12\cat_stat_marks.m</markdefs>
+      <qamethod>cat12</qamethod>
+      <date>20241225-194658</date>
+   </software>
+   <subjectmeasures>
+      <software>
+         <version_segment>1639</version_segment>
+      </software>
+      <qualitymeasures>
+         <software>
+            <version_segment>1639</version_segment>
+         </software>
+         <SurfaceEulerNumber>18</SurfaceEulerNumber>
+         <SurfaceDefectArea>0.672193195938215</SurfaceDefectArea>
+         <SurfaceDefectNumber>8.5</SurfaceDefectNumber>
+         <SurfaceIntensityRMSE>0.0717645660042763</SurfaceIntensityRMSE>
+         <SurfacePositionRMSE>0.0727027878165245</SurfacePositionRMSE>
+      </qualitymeasures>
+      <EC_abs>18</EC_abs>
+      <defect_size>0.672193195938215</defect_size>
+      <vol_abs_CGW>[317.269395359535 523.016778207013 426.544441187301 0 0]</vol_abs_CGW>
+      <vol_abs_WMH>1.81863486011555</vol_abs_WMH>
+      <vol_rel_WMH>0.00143557855244043</vol_rel_WMH>
+      <surf_TSA>1633.2560811533</surf_TSA>
+      <vol_TIV>1266.83061475385</vol_TIV>
+      <vol_rel_CGW>[0.250443422873216 0.412854545916257 0.336702031210527 0 0]</vol_rel_CGW>
+      <dist_thickness>
+         <item>[2.27338987189244 0.613015682072297]</item>
+      </dist_thickness>
+      <dist_thickness_kmeans>[2.30046486854553 0.613015682072297 1]</dist_thickness_kmeans>
+      <dist_thickness_kmeans_inner3>[1.52014185380537 0.234977775916118 0.220974927226234;2.22526049802323 0.184232235161779 0.431801733704305;2.8557051831232 0.237833202287893 0.347223339069461]</dist_thickness_kmeans_inner3>
+      <dist_thickness_kmeans_outer2>[0.895791292646183 0.115683372202962 0.433140826299422;3.64272382378952 0.26668197849273 0.566859173700577]</dist_thickness_kmeans_outer2>
+   </subjectmeasures>
+   <subjectratings>
+      <vol_TIV>1.41102022028998</vol_TIV>
+      <vol_rel_CGW>[2.34776262344138 5.26462905740404 3.89694739961435 -2.15014367816092 -2.15014367816092]</vol_rel_CGW>
+      <vol_rel_WMH>1.14355785524404</vol_rel_WMH>
+      <surf_TSA>8.38064911949972</surf_TSA>
+      <SQR>4.35347372078603</SQR>
+   </subjectratings>
+   <ppe>
+      <affreg>
+         <skullstrippedBGth>0</skullstrippedBGth>
+         <skullstrippedpara>[0.451979268391927 1 1 5681.88570805216 0.342823355060586]</skullstrippedpara>
+         <skullstripped>[false]</skullstripped>
+         <highBGpara>[0 0 0.0215106960386038]</highBGpara>
+         <highBG>[false]</highBG>
+         <Affine_catfinal>[1.10043561339277 0.014186978510795 0.0513949509932213 0.956143424830314;-0.0432111578846416 1.09190738914613 0.328121447296857 -7.99374520349374;-0.0519072864693186 -0.383398009211404 1.19709807197346 -28.9419808378262;0 0 0 1]</Affine_catfinal>
+      </affreg>
+      <SPMvols0>[627.039602588173 398.999231865106 525.249909857343 703.052228153015 2337.16526562426 6244.87293188773]</SPMvols0>
+      <SPMvols1>[524.199820439745 367.609864262536 344.29358433408 665.590513180452 1586.86079217398 6879.46923002449]</SPMvols1>
+      <tths>
+         <gintnorm>
+            <T3th>[147.586303710938 318.734405517578 410.949310302734]</T3th>
+            <Tth>
+               <T3th>[0 0 4.83516311645508 147.586303710938 318.734405517578 410.949310302734 542.630798339844 955.640258789062]</T3th>
+               <T3thx>[0 0.02 0.05 1 2 3 4 5]</T3thx>
+            </Tth>
+         </gintnorm>
+      </tths>
+      <reginitp>
+         <opt>
+            <nits>8</nits>
+            <vxreg>1.5</vxreg>
+            <rres>2</rres>
+            <stepsize>0.5</stepsize>
+            <resfac>[1.5 1.25 1 1 1]</resfac>
+            <ll1th>0.01</ll1th>
+            <ll3th>[0.02 0.02 0.02 0.02 0.02;0.02 0.02 0.02 0.02 0.02;0.02 0.02 0.02 0.02 0.02;0.02 0.02 0.02 0.02 0.02;0.02 0.02 0.02 0.02 0.02]</ll3th>
+            <regstr>13</regstr>
+         </opt>
+         <fast>0</fast>
+         <clsn>2</clsn>
+         <regra>1</regra>
+         <testfolder>Shooting_Template_0_GS_tr1.5_rr3.0-2.0_or1.5_regstr13.0</testfolder>
+         <dtc>[0.0240733455866575 0.0457199178636074 0.0627840608358383 0.0865972712635994 0.0934842675924301 0.0934842675924301]</dtc>
+         <ll>[0.0920744640629689 0 0.0920744640629689 0;0.0877272322859673 0.00202763240126441 0.0897548646872317 2239.10229492188;0.0816615057481326 0.00270942297998482 0.0843709287281174 5850.0126953125;0.0678769627063788 0.00440629042053743 0.0722832531269163 9513.7802734375;0.0636789365630512 0.00515828076022075 0.0688372173232719 11137.4296875;0.191036809689153 0.0154748422806623 0.206511651969816 11137.4296875]</ll>
+         <rmsdtc>[0.0504553243517876 0.0564586333930492 0.0825680047273636 0.124953061342239 0.138871431350708 0.138871431350708]</rmsdtc>
+         <rmsgdt>[0.0355675406754017 0.0192545093595982 0.0345909781754017 0.0678788349032402 0.0801259875297546 0.0801259875297546]</rmsgdt>
+         <rmsdt>0.138871431350708</rmsdt>
+         <dt>0.0934842675924301</dt>
+      </reginitp>
+      <Affine_SPMfinal>[1.10154415177208 0.0251206114963415 0.0496148012059001 1.2175063571654;-0.0540565410056529 1.05301174493995 0.359812979833575 -8.84830450520822;-0.0426544265881482 -0.411499151220509 1.15662175519507 -29.5425662479829;0 0 0 1]</Affine_SPMfinal>
+      <reg>
+         <opt>
+            <nits>64</nits>
+            <vxreg>1.5</vxreg>
+            <rres>1.5</rres>
+            <stepsize>0.25</stepsize>
+            <resfac>[1.66666666666667 1.5 1.33333333333333 1.16666666666667 1]</resfac>
+            <ll1th>0.051</ll1th>
+            <ll3th>[0.0501 0.0501 0.0501 0.0501 0.0501;0.0501 0.0501 0.0501 0.0501 0.0501;0.0501 0.0501 0.0501 0.0501 0.0501;0.0501 0.0501 0.0501 0.0501 0.0501;0.0501 0.0501 0.0501 0.0501 0.0501]</ll3th>
+            <regstr>0.5</regstr>
+         </opt>
+         <fast>0</fast>
+         <clsn>2</clsn>
+         <regra>1</regra>
+         <testfolder>Shooting_Template_0_GS_tr1.5_rr2.5-1.5_or1.5_regstr0.5</testfolder>
+         <dtc>[0.00872376468032598 0.036822721362114 0.0436228327453136 0.0519815869629383 0.0584211274981499 0.0655206367373466]</dtc>
+         <ll>[0.0877109535028715 0 0.0877109535028715 0;0.223745711233211 0.0158518372252747 0.239597548458486 8114.1591796875;0.210288130008948 0.0180136304196158 0.228301760428564 12964.6259765625;0.188909575923329 0.0197734868990616 0.208683062822391 21321.197265625;0.171685099433905 0.0223691094650422 0.194054208898947 39131.46875;0.171685099433905 0.0223691094650422 0.194054208898947 39131.46875]</ll>
+         <rmsdtc>[0.0106467362493277 0.0375057943165302 0.0602646842598915 0.0822790488600731 0.105780497193336 0.11304147541523]</rmsdtc>
+         <rmsgdt>[0.00319347786717117 0.0124974967911839 0.0283394865691662 0.0477365553379059 0.06534643471241 0.0709656029939651]</rmsgdt>
+         <rmsdt>0.11304147541523</rmsdt>
+         <dt>0.0655206367373466</dt>
+      </reg>
+   </ppe>
+   <catlog>
+      <item>------------------------------------------------------------------------</item>
+      <item>CAT12.9 r2577: 1/1: .\IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01.nii</item>
+      <item>------------------------------------------------------------------------</item>
+      <item>SANLM denoising (medium) 18s</item>
+      <item>Affine preprocessing (APP)</item>
+      <item>Initialize 6s</item>
+      <item>Estimate background 5s</item>
+      <item>Initial correction 6s</item>
+      <item>Refine background 4s</item>
+      <item>Final correction 5s</item>
+      <item>Final scaling 10s</item>
+      <item>40s</item>
+      <item>Correct center-of-mass 13s</item>
+      <item>Affine registration 17s</item>
+      <item>SPM preprocessing 1 (estimate 1 - TPM registration): 13s</item>
+      <item>Use initial fine affine registration. 50s</item>
+      <item>SPM preprocessing 1 (estimate 2): 94s</item>
+      <item>SPM preprocessing 2 (write)</item>
+      <item>Write Segmentation 22s</item>
+      <item>Update Segmentation 12s</item>
+      <item>Update Skull-Stripping 23s</item>
+      <item>Update probability maps 6s</item>
+      <item>64s</item>
+      <item>Global intensity correction 11s</item>
+      <item>SANLM denoising after intensity normalization (medium) 5s</item>
+      <item>Fast Optimized Shooting registration 3s</item>
+      <item>57s</item>
+      <item>Local adaptive segmentation (LASstr=0.50)</item>
+      <item>Prepare maps 3s</item>
+      <item>Prepare partitions 2s</item>
+      <item>Prepare segments (LASmod = 1.00) 6s</item>
+      <item>Estimate local tissue thresholds (WM) 16s</item>
+      <item>Estimate local tissue thresholds (GM) 19s</item>
+      <item>Intensity transformation 0s</item>
+      <item>SANLM denoising after LAS (medium) 10s</item>
+      <item>57s</item>
+      <item>ROI segmentation (partitioning)</item>
+      <item>Atlas -&gt; subject space 8s</item>
+      <item>Major structures 7s</item>
+      <item>Ventricle detection 10s</item>
+      <item>Blood vessel detection 5s</item>
+      <item>WMH detection (WMHCstr=0.49 &gt; WMHCstr'=0.23) 16s</item>
+      <item>Manual stroke lesion detection 0s</item>
+      <item>Closing of deep structures 1s</item>
+      <item>Side alignment 2s</item>
+      <item>Final corrections 1s</item>
+      <item>51s</item>
+      <item>Apply enhanced blood vessel correction 1s</item>
+      <item>Amap using initial SPM12 segmentations (MRF filter strength 0.06) 50s</item>
+      <item>AMAP peaks: [CSF,GM,WM] = [0.36Â±0.06,0.68Â±0.07,0.98Â±0.05]</item>
+      <item>Final cleanup (gcutstr=0.24)</item>
+      <item>Level 1 cleanup (ROI estimation) 2s</item>
+      <item>Level 1 cleanup (brain masking) 2s</item>
+      <item>Level 2 cleanup (CSF correction) 1s</item>
+      <item>Level 3 cleanup (CSF/WM PVE) 1s</item>
+      <item>5s</item>
+      <item>5s</item>
+      <item>Write result maps 9s</item>
+      <item>Surface and thickness estimation</item>
+      <item>lh:</item>
+      <item>Thickness estimation (0.50 mmÂ³) 83s</item>
+      <item>Create initial surface 55s</item>
+      <item>Topology correction: 72s</item>
+      <item>Surface refinement: 74s</item>
+      <item>Reduction of surface collisions with optimization: 38s</item>
+      <item>Spherical mapping with areal smoothing 55s</item>
+      <item>Spherical registration 278s</item>
+      <item>rh:</item>
+      <item>Thickness estimation (0.50 mmÂ³) 82s</item>
+      <item>Create initial surface 52s</item>
+      <item>Topology correction: 70s</item>
+      <item>Surface refinement: 55s</item>
+      <item>Reduction of surface collisions with optimization: 38s</item>
+      <item>Spherical mapping with areal smoothing 55s</item>
+      <item>Spherical registration 289s</item>
+      <item>Final surface processing results:</item>
+      <item>Average thickness: 2.2733 Â± 0.6128 mm</item>
+      <item>Euler characteristic / defect size: 18 / 0.67%</item>
+      <item>Display thickness: &lt;a href="matlab:cat_surf_display('C:\Users\cloud\Desktop\surf\lh.thickness.IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01');"&gt;C:\Users\cloud\Desktop\surf\lh.thickness.IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01&lt;/a&gt;</item>
+      <item>Display thickness: &lt;a href="matlab:cat_surf_display('C:\Users\cloud\Desktop\surf\rh.thickness.IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01');"&gt;C:\Users\cloud\Desktop\surf\rh.thickness.IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01&lt;/a&gt;</item>
+      <item>Show surfaces in orthview: &lt;a href="matlab:cat_surf_fun('show_orthview',{'C:\Users\cloud\Desktop\surf\lh.pial.IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01.gii','C:\Users\cloud\Desktop\surf\lh.white.IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01.gii','C:\Users\cloud\Desktop\surf\rh.pial.IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01.gii','C:\Users\cloud\Desktop\surf\rh.white.IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01.gii'},'C:\Users\cloud\Desktop\IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01.nii',{'-g','-r','-g','-r'},{'white','pial','white','pial'});"&gt;C:\Users\cloud\Desktop\IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01.nii&lt;/a&gt;</item>
+      <item>Surface and thickness estimation takes 1369s</item>
+      <item>ROI estimation</item>
+      <item>ROI estimation of 'thalamic_nuclei' atlas 2s</item>
+      <item>ROI estimation of 'cobra' atlas 6s</item>
+      <item>ROI estimation of 'neuromorphometrics' atlas 22s</item>
+      <item>ROI estimation of 'lpba40' atlas 7s</item>
+      <item>ROI estimation of 'thalamus' atlas 2s</item>
+      <item>ROI estimation of 'suit' atlas 4s</item>
+      <item>Write results 5s</item>
+      <item>44s</item>
+      <item>Quality check 5s</item>
+      <item>[ è­¦å&#145;&#138;: Removing "C:\Program Files\MATLAB\R2024a\toolbox\spm12\external\fieldtrip\compat\matlablt2010b"</item>
+      <item>from your path.</item>
+      <item>See</item>
+      <item>http://www.fieldtriptoolbox.org/faq/should_i_add_fieldtrip_with_all_subdirectories_to_my_matlab_path/]</item>
+      <item>[ è­¦å&#145;&#138;: å&#156;¨è·¯å¾&#132;ä¸­æ&#156;ªæ&#137;¾å&#136;° "C:\Program</item>
+      <item>Files\MATLAB\R2024a\toolbox\spm12\external\fieldtrip\compat\matlablt2010b"ã&#128;&#130;]</item>
+      <item>[ è­¦å&#145;&#138;: Removing "C:\Program Files\MATLAB\R2024a\toolbox\spm12\external\fieldtrip\compat\matlablt2012a"</item>
+      <item>from your path.</item>
+      <item>See</item>
+      <item>http://www.fieldtriptoolbox.org/faq/should_i_add_fieldtrip_with_all_subdirectories_to_my_matlab_path/]</item>
+      <item>C:\Users\cloud\Desktop\report\catreport_IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01.pdf</item>
+      <item>C:\Users\cloud\Desktop\report\catreport_IXI414-Guys-0957-MPRAGESEN_-s414_-0301-00003-000001-01.pdf</item>
+      <item>------------------------------------------------------------------------</item>
+      <item>CAT preprocessing takes 37 minute(s) and 45 second(s).</item>
+      <item>Image Quality Rating (IQR): 85.69% (B)</item>
+      <item>Segmentations are saved in C:\Users\cloud\Desktop\mri</item>
+      <item>Reports are saved in C:\Users\cloud\Desktop\report</item>
+      <item>Labels are saved in C:\Users\cloud\Desktop\label</item>
+      <item>------------------------------------------------------------------------</item>
+   </catlog>
+</S>
