@@ -7,7 +7,7 @@ FS\functionHO.py中KNeighborsClassifier替换为from utils import gpu_knn
 监视GPU，CPU占用，估计可开启的线程。
 大概率需要在实验室主机上进行操作
 然后根据单次运行时间估计总运行时间。再乘以100估计总运行时间。
-
+还需要通过GitHub找到优化算法的代码然后实现标准函数的测试。
 ---
 
 ### **1. 初始种群生成策略**
