@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
-from FS.ibka3h import jfs   # change this to switch algorithm 
+from FS.gwo import jfs   # change this to switch algorithm 
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, precision_score, f1_score
 
@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 import time
 # Load data
-data = pd.read_csv('merged_df12.csv')
+data = pd.read_csv(r'./data/merged_df12.csv')
 
 # 删除包含缺失值的行
 data = data.dropna()
@@ -53,7 +53,7 @@ fold = {'xt':xtrain, 'yt':ytrain, 'xv':xtest, 'yv':ytest}
 # parameter
 k    = 5     # k-value in KNN
 N    = 10    # number of particles
-T    = 100   # maximum number of iterations
+T    = 1000   # maximum number of iterations
 opts = {'k':k, 'fold':fold, 'N':N, 'T':T}
 start_time = time.time()
 # perform feature selection

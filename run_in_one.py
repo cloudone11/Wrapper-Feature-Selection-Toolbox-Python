@@ -16,7 +16,8 @@ T = 100  # Maximum number of iterations
 opts = {'k': k, 'N': N, 'T': T}
 
 # Define algorithms to run
-algorithms = ["ibka1h", "ibka2h", "ibka3h", "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
+# algorithms = ["ibka1h", "ibka2h", "ibka3h", "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
+algorithms = ['gwo','gwoh','gwol','gwos']
 # algorithms = [ "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
 # Function to run the algorithm and collect metrics
 def run_algorithm(algo, train_index, test_index, feat, label):
@@ -72,11 +73,11 @@ def run_algorithm(algo, train_index, test_index, feat, label):
 def worker(i):
     print(f"worker {i} started")
     if i == 0:
-        data = pd.read_csv('merged_df12.csv')
+        data = pd.read_csv(r'./data/merged_df12.csv')
     elif i == 1:
-        data = pd.read_csv('merged_df13.csv')
+        data = pd.read_csv(r'./data/merged_df13.csv')
     elif i == 2:
-        data = pd.read_csv('merged_df23.csv')
+        data = pd.read_csv(r'./data/merged_df23.csv')
     else:
         print("Invalid input")
         return
@@ -118,17 +119,12 @@ def worker(i):
     for algo in algorithms:
         print(f"Running experiment with algorithm: {algo}")
         fold_results = []
-        for j in tqdm(range(10), unit="run"):
-            tqdm.write(f"Run {j + 1}/10")
-            start_time = time.time()
+        for j in tqdm(range(10), desc=f"Algorithm: {algo}", unit="run"):
             for fold, (train_index, test_index) in enumerate(kf.split(feat)):
-                print(f"Running fold {fold + 1}/10")
                 result = run_algorithm(algo, train_index, test_index, feat, label)
                 result['Fold'] = fold + 1  # Add fold number to result
                 result['Run'] = j + 1
                 fold_results.append(result)
-            end_time = time.time()
-            print(f"Running time for {j + 1}/10: {end_time - start_time} seconds")
         results.extend(fold_results)
 
     # Save results to JSON file

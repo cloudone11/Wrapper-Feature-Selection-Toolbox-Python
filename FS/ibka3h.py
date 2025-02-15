@@ -48,7 +48,6 @@ def sobol_initialization(N, Dim, UB, LB):
         X = np.vstack((X, random_samples))
     
     X = LB + X * (UB - LB)
-    print(X.shape)
     return X
 
 # 边界处理

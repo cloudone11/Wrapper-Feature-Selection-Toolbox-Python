@@ -11,7 +11,6 @@ from pyDOE import lhs
 def lhs_initialization(N, Dim, UB, LB):
     X = lhs(Dim, samples=N)
     X = LB + X * (UB - LB)
-    print(X.shape)
     return X
 
 from scipy.stats.qmc import Sobol
@@ -29,7 +28,6 @@ def sobol_initialization(N, Dim, UB, LB):
         X = np.vstack((X, random_samples))
     
     X = LB + X * (UB - LB)
-    print(X.shape)
     return X
 
 from scipy.stats.qmc import Halton
