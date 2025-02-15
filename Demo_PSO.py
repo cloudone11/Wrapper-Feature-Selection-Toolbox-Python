@@ -8,7 +8,7 @@ from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, prec
 
 import pandas as pd
 import numpy as np
-
+import time
 # Load data
 data = pd.read_csv('merged_df12.csv')
 
@@ -21,6 +21,15 @@ data = data.values
 # 分离特征和标签
 feat = np.asarray(data[:, :-1])  # 特征
 label = np.asarray(data[:, -1])  # 标签
+# 统计标签类别并转为整数
+types, counts = np.unique(label, return_counts=True)
+label = np.searchsorted(types, label)
+
+# 标签转为 one-hot 编码
+label = np.eye(len(types))[label]
+
+# 特征归一化
+label = np.argmax(label, axis=1)
 
 # 归一化特征到 [-1, 1]
 min_feat = np.min(feat, axis=0)  # 每列的最小值
@@ -36,6 +45,7 @@ feat = -1 + 2 * (feat - min_feat) / range_feat
 
 # 此时 feat 已经归一化到 [-1, 1]，可以继续后续处理
 
+
 # split data into train & validation (70 -- 30)
 xtrain, xtest, ytrain, ytest = train_test_split(feat, label, test_size=0.1, stratify=label)
 fold = {'xt':xtrain, 'yt':ytrain, 'xv':xtest, 'yv':ytest}
@@ -45,7 +55,7 @@ k    = 5     # k-value in KNN
 N    = 10    # number of particles
 T    = 100   # maximum number of iterations
 opts = {'k':k, 'fold':fold, 'N':N, 'T':T}
-
+start_time = time.time()
 # perform feature selection
 fmdl = jfs(feat, label, opts)
 sf   = fmdl['sf']
@@ -70,8 +80,8 @@ print("Accuracy:", 100 * Acc)
 tn, fp, fn, tp = confusion_matrix(y_valid, y_pred).ravel()
 # convert label of y_valid and y_pred to 'b' or 'g'
 selected_features = fmdl['sf']
-sensitivity = recall_score(y_valid, y_pred, pos_label='MCI')
-precision = precision_score(y_valid, y_pred, pos_label='MCI')
+sensitivity = recall_score(y_valid, y_pred, pos_label=0)
+precision = precision_score(y_valid, y_pred, pos_label=0)
 specificity = tn / (tn + fp)
 mcc = (tp * tn - fp * fn) / np.sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))
 print("selected features:", selected_features)
@@ -83,7 +93,8 @@ print("MCC:", mcc)
 # number of selected features
 num_feat = fmdl['nf']
 print("Feature Size:", num_feat)
-
+end_time = time.time()
+print("Time elapsed:", end_time - start_time, "seconds")
 # plot convergence
 curve   = fmdl['c']
 curve   = curve.reshape(np.size(curve,1))
