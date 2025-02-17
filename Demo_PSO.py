@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+from sklearn.feature_selection import mutual_info_classif, chi2, SelectKBest
+from sklearn.preprocessing import LabelEncoder
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 from FS.gwo import jfs   # change this to switch algorithm 
@@ -10,7 +12,7 @@ import pandas as pd
 import numpy as np
 import time
 # Load data
-data = pd.read_csv(r'./data/merged_df12.csv')
+data = pd.read_csv(r'./data/merged_df23.csv')
 
 # 删除包含缺失值的行
 data = data.dropna()
@@ -39,8 +41,8 @@ max_feat = np.max(feat, axis=0)  # 每列的最大值
 # 如果存在，将这些列的值设置为 0（或其他默认值）
 range_feat = max_feat - min_feat
 range_feat[range_feat == 0] = 1  # 避免除以零
+# 输出为零的列
 
-# 归一化
 feat = -1 + 2 * (feat - min_feat) / range_feat
 
 # 此时 feat 已经归一化到 [-1, 1]，可以继续后续处理

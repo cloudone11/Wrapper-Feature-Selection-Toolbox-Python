@@ -3,12 +3,14 @@ import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import KFold
 from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, precision_score, matthews_corrcoef
+from sklearn.feature_selection import mutual_info_classif, chi2, SelectKBest
+from sklearn.preprocessing import LabelEncoder
 import importlib
 import json
 from multiprocessing import Pool
 from tqdm import tqdm
 import time
-
+import matplotlib.pyplot as plt
 # Parameters
 k = 5  # k-value in KNN
 N = 10  # Number of particles
@@ -17,7 +19,7 @@ opts = {'k': k, 'N': N, 'T': T}
 
 # Define algorithms to run
 # algorithms = ["ibka1h", "ibka2h", "ibka3h", "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
-algorithms = ['gwo','gwoh','gwol','gwos']
+algorithms = ['gwo']
 # algorithms = [ "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
 # Function to run the algorithm and collect metrics
 def run_algorithm(algo, train_index, test_index, feat, label):
@@ -70,7 +72,7 @@ def run_algorithm(algo, train_index, test_index, feat, label):
         "Convergence Curve": curve
     }
 
-def worker(i):
+def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0):
     print(f"worker {i} started")
     if i == 0:
         data = pd.read_csv(r'./data/merged_df12.csv')
@@ -109,12 +111,40 @@ def worker(i):
     feat = -1 + 2 * (feat - min_feat) / range_feat
 
     # 此时 feat 已经归一化到 [-1, 1]，可以继续后续处理
-    
+    print("Columns with zero range:", np.where(range_feat == 0)[0])
+    if pre_feature_selection_algorithm == 'chi2':
+        # 使用卡方检验进行特征选择
+        chi2_selector = SelectKBest(score_func=chi2, k='all')
+        chi2_selector.fit(feat + 1, label)
+        chi2_scores = chi2_selector.scores_
+        # k = (1 - feature_drop_rate) * len(chi2_scores)
+        k = int((1 - feature_drop_rate) * len(chi2_scores))
+        # 如果 X 是 numpy 数组，先将其转换为 DataFrame
+        if isinstance(feat, np.ndarray):
+            X = pd.DataFrame(feat)
+        chi2_top_k_features = X.columns[chi2_selector.get_support(indices=True)[:k]]
+        feat = feat[:, chi2_top_k_features]
+        # 打印feature_drop_rate*len(chi2_scores)个最低特征的评分
+        
+    elif pre_feature_selection_algorithm == 'mi':
+        # 使用信息增益进行特征选择
+        mi_selector = SelectKBest(score_func=mutual_info_classif, k='all')
+        mi_selector.fit(feat, label)
+        mi_scores = mi_selector.scores_
+        k = int((1 - feature_drop_rate) * len(mi_scores))
+        mi_top_k_features = np.argsort(mi_scores)[::-1][:k]        
+        feat = feat[:, mi_top_k_features]
+    elif pre_feature_selection_algorithm == 'none':
+        pass
+    else:
+        print("Invalid input")
     k = 5  # k-value in KNN
     N = 10  # Number of particles
     T = 100  # Maximum number of iterations
     opts = {'k': k, 'N': N, 'T': T}
     results = []
+    aligned_curves = []
+    num_feat = []
     kf = KFold(n_splits=10, shuffle=True, random_state=42)  # 10-fold cross-validation
     for algo in algorithms:
         print(f"Running experiment with algorithm: {algo}")
@@ -125,15 +155,64 @@ def worker(i):
                 result['Fold'] = fold + 1  # Add fold number to result
                 result['Run'] = j + 1
                 fold_results.append(result)
+                num_feat.append(result['Number of Features'])
+                aligned_curves.append(result['Convergence Curve'])
         results.extend(fold_results)
 
     # Save results to JSON file
-    with open(f"experiment_results_{i}.json", "w") as json_file:
+    with open(f"experiment_results_{i}_{pre_feature_selection_algorithm}_{feature_drop_rate}.json", "w") as json_file:
         json.dump(results, json_file, indent=4)
 
-    print(f"Experiment results saved to experiment_results_{i}.json")
+    print(f"Experiment results saved to experiment_results_{i}_{pre_feature_selection_algorithm}_{feature_drop_rate}.json")
+    print(f"{np.mean(num_feat):.4f} features on average were selected")
+    # 绘制均值收敛曲线并保存图片
+    plt.xlabel('Iterations')
+    plt.ylabel('Fitness Value')
+    plt.title(f'Mean Convergence Curve ({pre_feature_selection_algorithm}, Drop Rate: {feature_drop_rate})')
+    plt.grid(True)
+    mean_convergence = np.mean(aligned_curves, axis=0)
+    plt.plot(mean_convergence)
+    plt.show()
+    plt.savefig(f"convergence_plot_{i}_{pre_feature_selection_algorithm}_{feature_drop_rate}.png")
 if __name__ == '__main__':
     # with Pool(processes=3) as pool:
     #     pool.map(worker, [0])
-    for i in range(3):
-        worker(i)
+    # for i in range(3):
+    #     worker(i)
+    
+    
+    # worker(0, 'mi', 0.5)
+    # worker(0, 'none', 0.5)
+    # worker(0, 'chi2', 0.5)
+    # worker(0, 'mi', 0.3)
+    # # worker(0, 'none', 0.3)
+    # worker(0, 'chi2', 0.3)
+    # worker(0, 'mi', 0.1)
+    # # worker(0, 'none', 0.1)
+    # worker(0, 'chi2', 0.1)
+    
+    # 分析不同参数对结果的影响
+    # 分析平均精度与平均特征数
+    file_names = ['experiment_results_0_mi_0.5.json','experiment_results_0_mi_0.3.json','experiment_results_0_mi_0.1.json', 'experiment_results_0_chi2_0.5.json','experiment_results_0_chi2_0.3.json','experiment_results_0_chi2_0.1.json','experiment_results_0_none_0.5.json']
+    for file_name in file_names:
+        with open(file_name, 'r') as f:
+            1
+            # results = json.load(f)
+            # accs = [result['Accuracy'] for result in results]
+            # print(f"Average accuracy for {file_name}: {np.mean(accs):.4f}")
+            # num_feats = [result['Number of Features'] for result in results]
+            # print(f"Average number of features for {file_name}: {np.mean(num_feats):.4f}")
+    # 由此：降特征数量是有效的，并且适当的降低特征数量可以提高精度
+    # 绘制收敛曲线并保存图片
+    plt.figure(figsize=(10, 6))
+    # 分析收敛曲线
+    for file_name in file_names:
+        with open(file_name, 'r') as f:
+            results = json.load(f)
+            aligned_curves = [result['Convergence Curve'] for result in results]
+            mean_convergence = np.mean(aligned_curves, axis=0)
+            plt.plot(mean_convergence, label=file_name)
+    plt.xlabel('Iterations')
+    plt.ylabel('Fitness Value')
+    plt.title('Mean Convergence Curve')
+    plt.show()

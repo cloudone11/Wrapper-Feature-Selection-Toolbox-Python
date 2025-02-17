@@ -118,12 +118,12 @@ def analyze_high_accuracy_feature_selection(input_file_path, output_folder_path)
         f.write(f"Maximum Number of Features: {max_feature_count}\n")
 
 if __name__ == '__main__':
-    # analyze_results_by_algo(r'result_analy\gwo初始种群\experiment_results_0.json', r'result_analy\gwo初始种群')
-    # analyze_results_by_algo(r'result_analy\gwo初始种群\experiment_results_1.json', r'result_analy\gwo初始种群')
-    # analyze_results_by_algo(r'result_analy\gwo初始种群\experiment_results_2.json', r'result_analy\gwo初始种群')
+    analyze_results_by_algo(r'result_analy\aal2base\experiment_results_0.json', r'result_analy\aal2base')
+    analyze_results_by_algo(r'result_analy\aal2base\experiment_results_1.json', r'result_analy\aal2base')
+    analyze_results_by_algo(r'result_analy\aal2base\experiment_results_2.json', r'result_analy\aal2base')
     # 总结：sobol初始种群的实验结果较优，但无明显差距。
-    analyze_high_accuracy_feature_selection(r'result_analy\gwo初始种群\experiment_results_0.json', r'result_analy\gwo初始种群')
-    analyze_high_accuracy_feature_selection(r'result_analy\gwo初始种群\experiment_results_1.json', r'result_analy\gwo初始种群')
-    analyze_high_accuracy_feature_selection(r'result_analy\gwo初始种群\experiment_results_2.json', r'result_analy\gwo初始种群')
+    # analyze_high_accuracy_feature_selection(r'result_analy\base\experiment_results_0.json', r'result_analy\base')
+    # analyze_high_accuracy_feature_selection(r'result_analy\base\experiment_results_1.json', r'result_analy\base')
+    # analyze_high_accuracy_feature_selection(r'result_analy\base\experiment_results_2.json', r'result_analy\base')
     # 总结：可以在少量特征的情况下获得高准确率，特征数目与准确率没有明显正相关性。
     # 下一步可以尝试使用随机反向特征选择算法，减少特征数目，影响准确率。
