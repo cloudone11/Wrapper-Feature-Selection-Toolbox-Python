@@ -4,7 +4,7 @@ from sklearn.feature_selection import mutual_info_classif, chi2, SelectKBest
 from sklearn.preprocessing import LabelEncoder
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
-from FS.gwo import jfs   # change this to switch algorithm 
+from FS.gwo4 import jfs   # change this to switch algorithm 
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, precision_score, f1_score
 

@@ -19,7 +19,7 @@ opts = {'k': k, 'N': N, 'T': T}
 
 # Define algorithms to run
 # algorithms = ["ibka1h", "ibka2h", "ibka3h", "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
-algorithms = ['gwo']
+algorithms = ['gwo4']
 # algorithms = [ "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
 # Function to run the algorithm and collect metrics
 def run_algorithm(algo, train_index, test_index, feat, label):
@@ -143,7 +143,7 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0):
     T = 100  # Maximum number of iterations
     opts = {'k': k, 'N': N, 'T': T}
     results = []
-    aligned_curves = []
+    accuracy_scores = []
     num_feat = []
     kf = KFold(n_splits=10, shuffle=True, random_state=42)  # 10-fold cross-validation
     for algo in algorithms:
@@ -156,7 +156,7 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0):
                 result['Run'] = j + 1
                 fold_results.append(result)
                 num_feat.append(result['Number of Features'])
-                aligned_curves.append(result['Convergence Curve'])
+                accuracy_scores.append(result['Accuracy'])
         results.extend(fold_results)
 
     # Save results to JSON file
@@ -165,15 +165,8 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0):
 
     print(f"Experiment results saved to experiment_results_{i}_{pre_feature_selection_algorithm}_{feature_drop_rate}.json")
     print(f"{np.mean(num_feat):.4f} features on average were selected")
-    # 绘制均值收敛曲线并保存图片
-    plt.xlabel('Iterations')
-    plt.ylabel('Fitness Value')
-    plt.title(f'Mean Convergence Curve ({pre_feature_selection_algorithm}, Drop Rate: {feature_drop_rate})')
-    plt.grid(True)
-    mean_convergence = np.mean(aligned_curves, axis=0)
-    plt.plot(mean_convergence)
-    plt.show()
-    plt.savefig(f"convergence_plot_{i}_{pre_feature_selection_algorithm}_{feature_drop_rate}.png")
+    print(f"{np.mean(accuracy_scores):.4f} accuracy on average was achieved")
+    
 if __name__ == '__main__':
     # with Pool(processes=3) as pool:
     #     pool.map(worker, [0])
@@ -190,29 +183,35 @@ if __name__ == '__main__':
     # worker(0, 'mi', 0.1)
     # # worker(0, 'none', 0.1)
     # worker(0, 'chi2', 0.1)
+    # File Name	Average Accuracy	Average Number of Features
+    # experiment_results_0_mi_0.5.json	0.9215	20.7600
+    # experiment_results_0_mi_0.3.json	0.9146	27.6700
+    # experiment_results_0_mi_0.1.json	0.9187	35.2300
+    # experiment_results_0_chi2_0.5.json	0.8926	19.7800
+    # experiment_results_0_chi2_0.3.json	0.9054	-
+    # worker(0, 'mi', 0.2)
+    # worker(0, 'chi2', 0.2)
     
-    # 分析不同参数对结果的影响
-    # 分析平均精度与平均特征数
-    file_names = ['experiment_results_0_mi_0.5.json','experiment_results_0_mi_0.3.json','experiment_results_0_mi_0.1.json', 'experiment_results_0_chi2_0.5.json','experiment_results_0_chi2_0.3.json','experiment_results_0_chi2_0.1.json','experiment_results_0_none_0.5.json']
-    for file_name in file_names:
-        with open(file_name, 'r') as f:
-            1
-            # results = json.load(f)
-            # accs = [result['Accuracy'] for result in results]
-            # print(f"Average accuracy for {file_name}: {np.mean(accs):.4f}")
-            # num_feats = [result['Number of Features'] for result in results]
-            # print(f"Average number of features for {file_name}: {np.mean(num_feats):.4f}")
-    # 由此：降特征数量是有效的，并且适当的降低特征数量可以提高精度
-    # 绘制收敛曲线并保存图片
-    plt.figure(figsize=(10, 6))
-    # 分析收敛曲线
-    for file_name in file_names:
-        with open(file_name, 'r') as f:
-            results = json.load(f)
-            aligned_curves = [result['Convergence Curve'] for result in results]
-            mean_convergence = np.mean(aligned_curves, axis=0)
-            plt.plot(mean_convergence, label=file_name)
-    plt.xlabel('Iterations')
-    plt.ylabel('Fitness Value')
-    plt.title('Mean Convergence Curve')
-    plt.show()
+    # worker(0, 'none', 0.2)
+    # worker(1, 'none', 0.2)
+    # worker(2, 'none', 0.2)
+    
+    # worker(0, 'mi', 0.2)
+    # worker(1, 'mi', 0.2)
+    # worker(2, 'mi', 0.2)
+    
+    # worker(0, 'chi2', 0.2)
+    # worker(1, 'chi2', 0.2)
+    # worker(2, 'chi2', 0.2)
+    
+    # Worker	File Name	Features Selected (avg)	Accuracy (avg)	Time per Run (s)
+    # 0	experiment_results_0_none_0.2.json	39.9000	0.9099	23.34
+    # 1	experiment_results_1_none_0.2.json	28.0200	0.9623	23.01
+    # 2	experiment_results_2_none_0.2.json	36.2700	0.9404	24.30
+    # 0	experiment_results_0_mi_0.2.json	31.7200	0.9185	19.49
+    # 1	experiment_results_1_mi_0.2.json	23.4000	0.9610	19.00
+    # 2	experiment_results_2_mi_0.2.json	28.7200	0.9473	19.99
+    # 0	experiment_results_0_chi2_0.2.json	31.0100	0.9198	19.48
+    # 1	experiment_results_1_chi2_0.2.json	23.8800	0.9613	19.05
+    
+    pass
