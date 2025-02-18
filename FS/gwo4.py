@@ -92,18 +92,18 @@ def jfs(xtrain, ytrain, opts):
         # ========== 反向学习策略 ==========
         # 计算当前种群方差
         var_current = np.sum(np.var(X, axis=0))
-        var_standerd = var_current / (X.shape[1] * X.shape[0])
+        var_standerd = var_current 
         
         # 计算反向个体数量
-        reverse_num = int(min(var_standerd, 0.3) * N)
-        
+        reverse_num = round(min(var_standerd, 0.3) * N)
+        reversed_num = 0
         # 生成反向个体
         if reverse_num > 0:
-            selected_indices = np.random.choice(pop_size, size=reverse_num, replace=False)
+            selected_indices = np.random.choice(N, size=reverse_num, replace=False)
             
             # 计算当前排名
-            sorted_indices = np.argsort(fitness)
-            ranks = np.zeros(pop_size, dtype=int)
+            sorted_indices = np.argsort(fit.flatten())
+            ranks = np.zeros(N, dtype=int)
             for rank, idx in enumerate(sorted_indices, 1):
                 ranks[idx] = rank
             
@@ -113,9 +113,12 @@ def jfs(xtrain, ytrain, opts):
                 # 生成部分反向解。在特征空间中随机选择一部分特征进行反向
                 reverse_indices = np.random.choice(dim, size=int(0.1 * dim), replace=False)
                 reverse_individual = X[idx].copy()
-                reverse_individual[reverse_indices] = lb + ub - reverse_individual[reverse_indices]
-                
-                f_reverse = Fun(reverse_individual)
+                # for ri in reverse_indices:
+                #     reverse_individual[ri] = lb[0][0] + ub[0][0] - reverse_individual[ri]
+                reverse_individual[reverse_indices] = lb[0, reverse_indices] + ub[0, reverse_indices] - reverse_individual[reverse_indices]
+                # 将reverse_individual化为1xdim的形式
+                reverse_individual = reverse_individual.reshape(1, dim)
+                f_reverse = Fun(xtrain, ytrain, binary_conversion(reverse_individual, thres, 1, dim)[0], opts)
                 f_original = fit[idx]
                 
                 # 计算适应度比值
@@ -125,16 +128,19 @@ def jfs(xtrain, ytrain, opts):
                     k = f_reverse / f_original
                 
                 # 计算Logistic函数值
-                logistic_k = 1 / (1 + np.exp(-k))
+                logistic_k = 1 / (1 + np.exp(-k - 0.10))
                 
                 # 计算替换概率
-                a = (logistic_k * ranks[idx]) / pop_size
+                a = (logistic_k * ranks[idx]) / N
                 
                 # 决定是否替换
                 if a > np.random.uniform():
-                    print(f"Reverse individual at index {idx}")
-                    pop[idx] = reverse_individual
-                    fitness[idx] = f_reverse
+                    # print(f"Reverse individual at index {idx}")
+                    X[idx] = reverse_individual
+                    fit[idx] = f_reverse
+                    reversed_num += 1
+        # if reversed_num > 0:
+        #     print(f"Reversed number: {reversed_num}")
       	# Coefficient decreases linearly from 2 to 0 
         a = 2 - t * (2 / max_iter) 
         

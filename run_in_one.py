@@ -13,7 +13,7 @@ import time
 import matplotlib.pyplot as plt
 # Parameters
 k = 5  # k-value in KNN
-N = 10  # Number of particles
+N = 30  # Number of particles
 T = 100  # Maximum number of iterations
 opts = {'k': k, 'N': N, 'T': T}
 
@@ -214,4 +214,4 @@ if __name__ == '__main__':
     # 0	experiment_results_0_chi2_0.2.json	31.0100	0.9198	19.48
     # 1	experiment_results_1_chi2_0.2.json	23.8800	0.9613	19.05
     
-    pass
+    worker(0, 'mi', 0.2)
