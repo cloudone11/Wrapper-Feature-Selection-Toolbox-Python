@@ -1,0 +1,21 @@
+Algorithm Statistics:
+
+Algorithm: bka
+Accuracy:
+  Mean = 0.9650
+  Std  = 0.0330
+Sensitivity:
+  Mean = 0.9476
+  Std  = 0.0531
+Precision:
+  Mean = 0.9806
+  Std  = 0.0325
+Specificity:
+  Mean = 0.9476
+  Std  = 0.0531
+MCC:
+  Mean = 0.9299
+  Std  = 0.0660
+Number of Features:
+  Mean = 27.5800
+  Std  = 7.9463

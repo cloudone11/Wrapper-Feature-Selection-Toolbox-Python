@@ -19,7 +19,7 @@ opts = {'k': k, 'N': N, 'T': T}
 
 # Define algorithms to run
 # algorithms = ["ibka1h", "ibka2h", "ibka3h", "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
-algorithms = ['gwo4']
+algorithms = ['gwo']
 # algorithms = [ "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
 # Function to run the algorithm and collect metrics
 def run_algorithm(algo, train_index, test_index, feat, label):
@@ -168,6 +168,8 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0):
     print(f"{np.mean(accuracy_scores):.4f} accuracy on average was achieved")
     
 if __name__ == '__main__':
+    # 设置随机种子
+    np.random.seed(42)
     # with Pool(processes=3) as pool:
     #     pool.map(worker, [0])
     # for i in range(3):
@@ -215,3 +217,4 @@ if __name__ == '__main__':
     # 1	experiment_results_1_chi2_0.2.json	23.8800	0.9613	19.05
     
     worker(0, 'mi', 0.2)
+    

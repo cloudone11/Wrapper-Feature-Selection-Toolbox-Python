@@ -1,0 +1,201 @@
+Algorithm Statistics:
+
+Algorithm: woa
+Accuracy:
+  Mean = 0.8910
+  Std  = 0.0461
+Sensitivity:
+  Mean = 0.9506
+  Std  = 0.0587
+Precision:
+  Mean = 0.8519
+  Std  = 0.0715
+Specificity:
+  Mean = 0.9506
+  Std  = 0.0587
+MCC:
+  Mean = 0.7895
+  Std  = 0.0885
+Number of Features:
+  Mean = 24.8000
+  Std  = 17.4482
+
+Algorithm: ja
+Accuracy:
+  Mean = 0.9501
+  Std  = 0.0336
+Sensitivity:
+  Mean = 0.9928
+  Std  = 0.0213
+Precision:
+  Mean = 0.9156
+  Std  = 0.0658
+Specificity:
+  Mean = 0.9928
+  Std  = 0.0213
+MCC:
+  Mean = 0.9049
+  Std  = 0.0626
+Number of Features:
+  Mean = 52.3900
+  Std  = 5.8820
+
+Algorithm: pso
+Accuracy:
+  Mean = 0.9403
+  Std  = 0.0316
+Sensitivity:
+  Mean = 0.9882
+  Std  = 0.0250
+Precision:
+  Mean = 0.9038
+  Std  = 0.0603
+Specificity:
+  Mean = 0.9882
+  Std  = 0.0250
+MCC:
+  Mean = 0.8854
+  Std  = 0.0589
+Number of Features:
+  Mean = 52.1800
+  Std  = 6.1569
+
+Algorithm: sca
+Accuracy:
+  Mean = 0.9372
+  Std  = 0.0361
+Sensitivity:
+  Mean = 0.9663
+  Std  = 0.0470
+Precision:
+  Mean = 0.9144
+  Std  = 0.0648
+Specificity:
+  Mean = 0.9663
+  Std  = 0.0470
+MCC:
+  Mean = 0.8778
+  Std  = 0.0701
+Number of Features:
+  Mean = 11.0700
+  Std  = 5.9887
+
+Algorithm: ssa
+Accuracy:
+  Mean = 0.8729
+  Std  = 0.0423
+Sensitivity:
+  Mean = 0.9520
+  Std  = 0.0507
+Precision:
+  Mean = 0.8243
+  Std  = 0.0673
+Specificity:
+  Mean = 0.9520
+  Std  = 0.0507
+MCC:
+  Mean = 0.7562
+  Std  = 0.0797
+Number of Features:
+  Mean = 63.0300
+  Std  = 6.1196
+
+Algorithm: gwo
+Accuracy:
+  Mean = 0.9671
+  Std  = 0.0309
+Sensitivity:
+  Mean = 0.9953
+  Std  = 0.0161
+Precision:
+  Mean = 0.9426
+  Std  = 0.0581
+Specificity:
+  Mean = 0.9953
+  Std  = 0.0161
+MCC:
+  Mean = 0.9365
+  Std  = 0.0583
+Number of Features:
+  Mean = 23.6000
+  Std  = 5.9816
+
+Algorithm: bka
+Accuracy:
+  Mean = 0.9495
+  Std  = 0.0352
+Sensitivity:
+  Mean = 0.9825
+  Std  = 0.0292
+Precision:
+  Mean = 0.9218
+  Std  = 0.0593
+Specificity:
+  Mean = 0.9825
+  Std  = 0.0292
+MCC:
+  Mean = 0.9019
+  Std  = 0.0676
+Number of Features:
+  Mean = 36.2900
+  Std  = 8.9825
+
+Algorithm: gwos
+Accuracy:
+  Mean = 0.9683
+  Std  = 0.0304
+Sensitivity:
+  Mean = 0.9969
+  Std  = 0.0134
+Precision:
+  Mean = 0.9428
+  Std  = 0.0556
+Specificity:
+  Mean = 0.9969
+  Std  = 0.0134
+MCC:
+  Mean = 0.9387
+  Std  = 0.0578
+Number of Features:
+  Mean = 25.0900
+  Std  = 6.0977
+
+Algorithm: gwoh
+Accuracy:
+  Mean = 0.9702
+  Std  = 0.0309
+Sensitivity:
+  Mean = 0.9982
+  Std  = 0.0103
+Precision:
+  Mean = 0.9457
+  Std  = 0.0561
+Specificity:
+  Mean = 0.9982
+  Std  = 0.0103
+MCC:
+  Mean = 0.9425
+  Std  = 0.0587
+Number of Features:
+  Mean = 24.6000
+  Std  = 6.5115
+
+Algorithm: gwol
+Accuracy:
+  Mean = 0.9671
+  Std  = 0.0315
+Sensitivity:
+  Mean = 0.9971
+  Std  = 0.0148
+Precision:
+  Mean = 0.9408
+  Std  = 0.0599
+Specificity:
+  Mean = 0.9971
+  Std  = 0.0148
+MCC:
+  Mean = 0.9366
+  Std  = 0.0599
+Number of Features:
+  Mean = 23.3500
+  Std  = 6.1243
