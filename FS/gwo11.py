@@ -142,7 +142,7 @@ def jfs(xtrain, ytrain, opts):
             if rand() < 0.5:
                 r = -r
             X_prime = Xalpha[0,:] + np.abs(Xalpha[0,:] - X[i,:]) * r
-            X_prime.reshape(-1, dim)
+            X_prime =   X_prime.reshape(1, -1)
             
             X_prime = binary_conversion(X_prime, thres, 1, dim)
             fit_prime = Fun(xtrain, ytrain, X_prime[0,:], opts)

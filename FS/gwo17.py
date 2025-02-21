@@ -131,6 +131,8 @@ def jfs(xtrain, ytrain, opts):
         # Apply Cauchy mutation for alpha wolf
         Xalpha2 = cauchy_mutation_alpha(Xalpha,a,lb,ub)
         Xalpha2bin = binary_conversion(Xalpha2, thres, 1, dim)
+        Xalpha2bin = Xalpha2bin.flatten()
+        # print(Xalpha2bin)
         Xalpha2Fit = Fun(xtrain, ytrain, Xalpha2bin, opts)
         if Xalpha2Fit < Falpha:
             Xalpha = Xalpha2.copy()

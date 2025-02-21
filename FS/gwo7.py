@@ -47,7 +47,7 @@ def jfs(xtrain, ytrain, opts):
   
     # Initialize positions  
     Positions = init_position(lb, ub, N, dim)  
-  
+    
     # Initialize alpha, beta, and delta  
     Alpha_pos = np.zeros([1, dim], dtype='float')  
     Alpha_score = float('inf')  
@@ -55,7 +55,6 @@ def jfs(xtrain, ytrain, opts):
     Beta_score = float('inf')  
     Delta_pos = np.zeros([1, dim], dtype='float')  
     Delta_score = float('inf')  
-  
     # Pre  
     Convergence_curve = np.zeros([1, max_iter], dtype='float')  
     l = 0  
@@ -64,41 +63,41 @@ def jfs(xtrain, ytrain, opts):
     while l < max_iter:  
         for i in range(N):  
             # Boundary handling  
-            Positions[i, :] = np.clip(Positions[i, :], lb, ub)  
+            for d in range(dim):
+                Positions[i, d] = boundary(Positions[i, d], lb[0, d], ub[0, d])
+        # Binary conversion
+        Pbin = binary_conversion(Positions, thres, N, dim)        
+        for i in range(N):            
             # Calculate fitness  
-            fitness = Fun(xtrain, ytrain, Positions[i, :], opts)  
+            fitness = Fun(xtrain, ytrain, Pbin[i], opts)  
             # Update alpha, beta, and delta  
             if fitness < Alpha_score:  
                 Alpha_score = fitness  
-                Alpha_pos = Positions[i, :]  
+                Alpha_pos = Positions[i, :]
             elif fitness < Beta_score:  
                 Beta_score = fitness  
                 Beta_pos = Positions[i, :]  
             elif fitness < Delta_score:  
                 Delta_score = fitness  
                 Delta_pos = Positions[i, :]  
-        Alpha_pos.reshape(-1, dim)
-        Beta_pos.reshape(-1, dim)
-        Delta_pos.reshape(-1, dim)
-        print(Alpha_pos.shape)
         a = 2 - l * (2 / max_iter)  # Linearly decreasing coefficient  
   
-        for i in range(N):  
+        for i in range(N):
+              
             for j in range(dim): 
-                print(Alpha_pos.shape) 
                 r1 = rand()  
                 r2 = rand()  
                 A1 = 2 * a * r1 - a  
                 C1 = 2 * r2 
-                D_alpha = abs(C1 * Alpha_pos[0, j] - Positions[i, j])  
-                X1 = Alpha_pos[0, j] - A1 * D_alpha  
+                D_alpha = abs(C1 * Alpha_pos[ j] - Positions[i, j])  
+                X1 = Alpha_pos[ j] - A1 * D_alpha  
   
                 r1 = rand()  
                 r2 = rand()  
                 A2 = 2 * a * r1 - a  
                 C2 = 2 * r2  
-                D_beta = abs(C2 * Beta_pos[0, j] - Positions[i, j])  
-                X2 = Beta_pos[0, j] - A2 * D_beta  
+                D_beta = abs(C2 * Beta_pos[ j] - Positions[i, j])  
+                X2 = Beta_pos[ j] - A2 * D_beta  
   
                 # Lévy flight  
                 beta = 1.5  # Lévy exponent  
@@ -107,8 +106,11 @@ def jfs(xtrain, ytrain, opts):
                 u = np.random.normal(0, sigma_u)  
                 v = np.random.normal(0, 1)  
                 alpha_levi = 0.01 * u / (abs(v) ** beta)  
-                Positions[i, j] = 0.5 * (X1 + X2) + alpha_levi * (Positions[i, j] - Alpha_pos[0, j])  
-  
+                A = 2 * a * rand() - a
+                if abs(A) > 1:  
+                    Positions[i, j] = 0.5 * (X1 + X2) + alpha_levi * (Positions[i, j] - Alpha_pos[ j])  
+                else:  
+                    Positions[i, j] = 0.5 * (X1 + X2)
                 # Boundary handling  
                 Positions[i, j] = boundary(Positions[i, j], lb[0, j], ub[0, j])  
   
@@ -122,6 +124,7 @@ def jfs(xtrain, ytrain, opts):
         l += 1  
   
     # Best feature subset  
+    Alpha_pos = Alpha_pos.reshape(1, dim)
     Gbin = binary_conversion(Alpha_pos, thres, 1, dim)  
     Gbin = Gbin.reshape(dim)  
     pos = np.asarray(range(0, dim))  

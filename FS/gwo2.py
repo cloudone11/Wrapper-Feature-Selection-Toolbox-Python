@@ -3,7 +3,7 @@ from numpy.random import rand
 from FS.functionHO import Fun
 # https://blog.csdn.net/weixin_43821559/article/details/118394571
 # https://jns.usst.edu.cn/shlgdxxbzk/article/abstract/20210110
-# 求解全局优化问题的改进灰狼算法
+# 求解全局优化问题的改进灰狼算法----刊登在小报
 # eps = 1e-16  # Small constant to avoid division by zero
 
 # 实验目的：验证提出的3种改进策略的有效性。
@@ -51,7 +51,7 @@ def jfs(xtrain, ytrain, opts):
     ub = 1
     lb = 0
     thres = 0.5
-    eps = 1e-16  # Small constant to avoid division by zero
+    eps = 0  # Small constant to avoid division by zero
 
     N = opts['N']
     max_iter = opts['T']
@@ -102,32 +102,48 @@ def jfs(xtrain, ytrain, opts):
         # Sort the population based on fitness
         fit_sorted_indices = np.argsort(fit.flatten())
         X_sorted = X[fit_sorted_indices]
-        Xalpha[0, :] = X_sorted[0, :]
-        Xbeta[0, :] = X_sorted[1, :]
-        Xdelta[0, :] = X_sorted[2, :]
+        Xalpha = X_sorted[0, :].reshape(1,-1)
+        Xbeta = X_sorted[1, :].reshape(1,-1)
+        Xdelta = X_sorted[2, :].reshape(1,-1)
 
-        # Calculate dynamic weights
-        dist_alpha = np.linalg.norm(X - Xalpha, axis=1)
-        dist_beta = np.linalg.norm(X - Xbeta, axis=1)
-        dist_delta = np.linalg.norm(X - Xdelta, axis=1)
-
-        W1 = dist_alpha / (dist_alpha + dist_beta + dist_delta + eps)
-        W2 = dist_beta / (dist_alpha + dist_beta + dist_delta + eps)
-        W3 = dist_delta / (dist_alpha + dist_beta + dist_delta + eps)
+        
 
         for i in range(N):
             for d in range(dim):
-                # Adaptive position update
-                X1 = Xalpha[0, d]
-                X2 = Xbeta[0, d]
-                X3 = Xdelta[0, d]
-
+                # Parameter C (3.4)
+                C1     = 2 * rand()
+                C2     = 2 * rand()
+                C3     = 2 * rand()
+                
+                # Parameter A (3.3)
+                A1     = 2 * a * rand() - a
+                A2     = 2 * a * rand() - a
+                A3     = 2 * a * rand() - a
+                # Compute Dalpha, Dbeta & Ddelta (3.5)
+                Dalpha = abs(C1 * Xalpha[0,d] - X[i,d]) 
+                Dbeta  = abs(C2 * Xbeta[0,d] - X[i,d])
+                Ddelta = abs(C3 * Xdelta[0,d] - X[i,d])
+                # Compute X1, X2 & X3 (3.6) 
+                X1     = Xalpha[0,d] - A1 * Dalpha
+                X2     = Xbeta[0,d] - A2 * Dbeta
+                X3     = Xdelta[0,d] - A3 * Ddelta
+                # Calculate dynamic weights
+                # dist_alpha = abs(Xalpha[0,d] - X[i,d])
+                
+                # dist_beta =  abs(Xbeta[0,d] - X[i,d])
+                # dist_delta = abs(Xdelta[0,d] - X[i,d])
+                # Compute Dalpha, Dbeta & Ddelta (3.5)
+                dist_alpha = np.linalg.norm(X1)
+                dist_beta  = np.linalg.norm(X2)
+                dist_delta = np.linalg.norm(X3)
+                W1 = dist_alpha / (dist_alpha + dist_beta + dist_delta + eps)
+                W2 = dist_beta / (dist_alpha + dist_beta + dist_delta + eps)
+                W3 = dist_delta / (dist_alpha + dist_beta + dist_delta + eps)
+                # Update wolf (3.7)
                 # New position
-                X_new = (W1[i] * X1 + W2[i] * X2 + W3[i] * X3) / (1 - t / max_iter) + Xalpha[0, d] * (t / max_iter)
-
-                # Boundary check
-                X[i, d] = boundary(X_new, lb[0, d], ub[0, d])
-
+                X_new = (W1 * X1 + W2 * X2 + W3 * X3)*(1 - t / max_iter)  + Xalpha[0, d] * (t / max_iter)         
+                # Boundary
+                X[i,d] = boundary(X[i,d], lb[0,d], ub[0,d])
         # Binary conversion
         Xbin = binary_conversion(X, thres, N, dim)
 
@@ -146,7 +162,7 @@ def jfs(xtrain, ytrain, opts):
 
         curve[0, t] = Falpha.copy()
         t += 1
-    print('xalpha: ', Xalpha)
+    # print('xalpha: ', Xalpha)
     # Best feature subset
     Gbin = binary_conversion(Xalpha, thres, 1, dim)
     Gbin = Gbin.reshape(dim)

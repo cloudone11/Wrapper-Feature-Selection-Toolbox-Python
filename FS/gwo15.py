@@ -81,8 +81,8 @@ def jfs(xtrain, ytrain, opts):
     curve[0,t] = Falpha.copy()
     t += 1
     # set the parameter Pint to 100 and Pmin to 10
-    Pint = 100
-    Pmin = 10
+    Pint = N
+    Pmin = 4
     while t < max_iter:
         # Update a
         a = 2 - t * (2 / max_iter)
@@ -140,7 +140,7 @@ def jfs(xtrain, ytrain, opts):
             Xj = X[j,:]
             # Mutation
             V  = Xj + F * (Xalpha[0,:] - X[i,:])
-            V.reshape(-1, dim)
+            V = V.reshape(1,-1)
             # Crossover
             U = np.zeros([1, dim], dtype='float')
             for d in range(dim):
@@ -148,7 +148,7 @@ def jfs(xtrain, ytrain, opts):
                     U[0,d] = V[0,d]
                 else:
                     U[0,d] = X[i,d]
-            U = boundary(U, lb, ub)
+                U[0,d] = boundary(U[0,d], lb[0,d], ub[0,d])
             Ubin = binary_conversion(U, thres, 1, dim)
             fit_U = Fun(xtrain, ytrain, Ubin[0,:], opts)
             if fit_U < fit[i,0]:
@@ -181,14 +181,15 @@ def jfs(xtrain, ytrain, opts):
                     nearst_neighbor = j
             # if the cost function of the nearest neighbor is less than or equal to that of ith wolf
             if memory_fitness[nearst_neighbor,0] <= fit[idx,0]:
-                temp_wolves[i,:] = memory_swarm[idx,:] + 2 * rand() * (memory_swarm[nearst_neighbor,:] - memory_swarm[idx,:])
+                temp_wolves[0,:] = memory_swarm[idx,:] + 2 * rand() * (memory_swarm[nearst_neighbor,:] - memory_swarm[idx,:])
             else:
-                temp_wolves[i,:] = memory_swarm[idx,:] + 2 * rand() * (memory_swarm[nearst_neighbor,:] - memory_swarm[idx,:]) * -1            
-            temp_wolves = boundary(temp_wolves, lb, ub)
+                temp_wolves[0,:] = memory_swarm[idx,:] + 2 * rand() * (memory_swarm[nearst_neighbor,:] - memory_swarm[idx,:]) * -1 
+            for d in range(dim):                               
+                temp_wolves[0,d] = boundary(temp_wolves[0,d], lb[0,d], ub[0,d])
             temp_wolves_bin = binary_conversion(temp_wolves, thres, 1, dim)
-            fit_local = Fun(xtrain, ytrain, X_local_bin[0,:], opts)
+            fit_local = Fun(xtrain, ytrain, temp_wolves_bin[0,:], opts)
             if fit_local < memory_fitness[idx,0]:
-                memory_swarm[idx,:] = X_local
+                memory_swarm[idx,:] = temp_wolves
                 memory_fitness[idx,0] = fit_local
         
         # Linear population size reduction (LPSR)

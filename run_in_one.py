@@ -15,14 +15,14 @@ import traceback
 
 # Parameters
 k = 5  # k-value in KNN
-N = 10  # Number of particles
+N = 30 # Number of particles
 T = 100  # Maximum number of iterations
 opts = {'k': k, 'N': N, 'T': T}
 
 # Define algorithms to run
 # algorithms = ["ibka1h", "ibka2h", "ibka3h", "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
-algorithms = ['gwo7']
-# algorithms = ['gwo1','gwo2','gwo6','gwo7','gwo8','gwo9','gwo10','gwo11','gwo12','gwo13','gwo14','gwo15','gwo16','gwo17']
+# algorithms = ['gwo15']
+algorithms = ['gwo1','gwo6','gwo7','gwo8','gwo9','gwo10','gwo11','gwo12','gwo13','gwo14','gwo15','gwo16','gwo17']
 # algorithms = [ "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
 # Function to run the algorithm and collect metrics
 def run_algorithm(algo, train_index, test_index, feat, label):
@@ -154,8 +154,8 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0):
         fold_results = []
         for j in tqdm(range(1), desc=f"Algorithm: {algo}", unit="run"):
             for fold, (train_index, test_index) in enumerate(kf.split(feat)):
-                if fold != 0:
-                    continue
+                # if fold != 0:
+                #     continue
                 # try - catch block to handle exceptions
                 try:
                     result = run_algorithm(algo, train_index, test_index, feat, label)
