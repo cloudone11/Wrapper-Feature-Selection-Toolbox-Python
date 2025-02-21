@@ -11,15 +11,18 @@ from multiprocessing import Pool
 from tqdm import tqdm
 import time
 import matplotlib.pyplot as plt
+import traceback
+
 # Parameters
 k = 5  # k-value in KNN
-N = 30  # Number of particles
+N = 10  # Number of particles
 T = 100  # Maximum number of iterations
 opts = {'k': k, 'N': N, 'T': T}
 
 # Define algorithms to run
 # algorithms = ["ibka1h", "ibka2h", "ibka3h", "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
-algorithms = ['gwo']
+algorithms = ['gwo7']
+# algorithms = ['gwo1','gwo2','gwo6','gwo7','gwo8','gwo9','gwo10','gwo11','gwo12','gwo13','gwo14','gwo15','gwo16','gwo17']
 # algorithms = [ "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
 # Function to run the algorithm and collect metrics
 def run_algorithm(algo, train_index, test_index, feat, label):
@@ -149,14 +152,21 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0):
     for algo in algorithms:
         print(f"Running experiment with algorithm: {algo}")
         fold_results = []
-        for j in tqdm(range(10), desc=f"Algorithm: {algo}", unit="run"):
+        for j in tqdm(range(1), desc=f"Algorithm: {algo}", unit="run"):
             for fold, (train_index, test_index) in enumerate(kf.split(feat)):
-                result = run_algorithm(algo, train_index, test_index, feat, label)
-                result['Fold'] = fold + 1  # Add fold number to result
-                result['Run'] = j + 1
-                fold_results.append(result)
-                num_feat.append(result['Number of Features'])
-                accuracy_scores.append(result['Accuracy'])
+                if fold != 0:
+                    continue
+                # try - catch block to handle exceptions
+                try:
+                    result = run_algorithm(algo, train_index, test_index, feat, label)
+                    result['Fold'] = fold + 1  # Add fold number to result
+                    result['Run'] = j + 1
+                    fold_results.append(result)
+                    num_feat.append(result['Number of Features'])
+                    accuracy_scores.append(result['Accuracy'])
+                except Exception as e:
+                    print(f"Error in fold {fold + 1} of run {j + 1} with algorithm {algo}: {e}")
+                    traceback.print_exc()  # 打印完整的错误栈跟踪信息              
         results.extend(fold_results)
 
     # Save results to JSON file
