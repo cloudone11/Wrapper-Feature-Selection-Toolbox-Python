@@ -49,7 +49,7 @@ def error_rate(xtrain, ytrain, x, opts):
     yt = fold['yt'].astype(np.int64)  # 确保标签为整数
     xv = fold['xv']
     yv = fold['yv'].astype(np.int64)  # 确保标签为整数
-    
+    global algorithms, knnClassifierList
     # 特征选择
     selected = x == 1
     if np.sum(selected) == 0:

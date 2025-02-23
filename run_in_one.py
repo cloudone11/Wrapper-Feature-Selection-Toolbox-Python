@@ -21,8 +21,8 @@ opts = {'k': k, 'N': N, 'T': T}
 
 # Define algorithms to run
 # algorithms = ["ibka1h", "ibka2h", "ibka3h", "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
-# algorithms = ['gwo15']
-algorithms = ['gwo1','gwo6','gwo7','gwo8','gwo9','gwo10','gwo11','gwo12','gwo13','gwo14','gwo15','gwo16','gwo17']
+algorithms = ['gwo15']
+# algorithms = ['gwo1','gwo6','gwo7','gwo8','gwo9','gwo10','gwo11','gwo12','gwo13','gwo14','gwo15','gwo16','gwo17']
 # algorithms = [ "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
 # Function to run the algorithm and collect metrics
 def run_algorithm(algo, train_index, test_index, feat, label):
@@ -153,6 +153,10 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0):
         print(f"Running experiment with algorithm: {algo}")
         fold_results = []
         for j in tqdm(range(1), desc=f"Algorithm: {algo}", unit="run"):
+            # set the static knn classifier
+            knnClassifierList = []
+            for fold, (train_index, test_index) in enumerate(kf.split(feat)):
+                pass
             for fold, (train_index, test_index) in enumerate(kf.split(feat)):
                 # if fold != 0:
                 #     continue
