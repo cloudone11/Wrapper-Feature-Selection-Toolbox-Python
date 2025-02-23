@@ -1,0 +1,261 @@
+Algorithm Statistics:
+
+Algorithm: gwo1
+Accuracy:
+  Mean = 0.9217
+  Std  = 0.0310
+Sensitivity:
+  Mean = 0.8368
+  Std  = 0.0711
+Precision:
+  Mean = 0.9800
+  Std  = 0.0600
+Specificity:
+  Mean = 0.8368
+  Std  = 0.0711
+MCC:
+  Mean = 0.8424
+  Std  = 0.0699
+Number of Features:
+  Mean = 58.7000
+  Std  = 7.4438
+
+Algorithm: gwo6
+Accuracy:
+  Mean = 0.9693
+  Std  = 0.0286
+Sensitivity:
+  Mean = 0.9343
+  Std  = 0.0575
+Precision:
+  Mean = 0.9889
+  Std  = 0.0333
+Specificity:
+  Mean = 0.9343
+  Std  = 0.0575
+MCC:
+  Mean = 0.9355
+  Std  = 0.0639
+Number of Features:
+  Mean = 18.8000
+  Std  = 4.9759
+
+Algorithm: gwo7
+Accuracy:
+  Mean = 0.6000
+  Std  = 0.0000
+Sensitivity:
+  Mean = 0.6111
+  Std  = 0.0000
+Precision:
+  Mean = 0.6875
+  Std  = 0.0000
+Specificity:
+  Mean = 0.6111
+  Std  = 0.0000
+MCC:
+  Mean = 0.1909
+  Std  = 0.0000
+Number of Features:
+  Mean = 1.0000
+  Std  = 0.0000
+
+Algorithm: gwo8
+Accuracy:
+  Mean = 0.9864
+  Std  = 0.0166
+Sensitivity:
+  Mean = 0.9682
+  Std  = 0.0404
+Precision:
+  Mean = 1.0000
+  Std  = 0.0000
+Specificity:
+  Mean = 0.9682
+  Std  = 0.0404
+MCC:
+  Mean = 0.9719
+  Std  = 0.0345
+Number of Features:
+  Mean = 8.7000
+  Std  = 3.0017
+
+Algorithm: gwo9
+Accuracy:
+  Mean = 0.9730
+  Std  = 0.0294
+Sensitivity:
+  Mean = 0.9455
+  Std  = 0.0560
+Precision:
+  Mean = 0.9900
+  Std  = 0.0300
+Specificity:
+  Mean = 0.9455
+  Std  = 0.0560
+MCC:
+  Mean = 0.9447
+  Std  = 0.0598
+Number of Features:
+  Mean = 11.9000
+  Std  = 9.2461
+
+Algorithm: gwo10
+Accuracy:
+  Mean = 0.8610
+  Std  = 0.0427
+Sensitivity:
+  Mean = 0.7944
+  Std  = 0.0824
+Precision:
+  Mean = 0.8801
+  Std  = 0.0782
+Specificity:
+  Mean = 0.7944
+  Std  = 0.0824
+MCC:
+  Mean = 0.7128
+  Std  = 0.0954
+Number of Features:
+  Mean = 1.6000
+  Std  = 0.6633
+
+Algorithm: gwo11
+Accuracy:
+  Mean = 0.9356
+  Std  = 0.0315
+Sensitivity:
+  Mean = 0.8914
+  Std  = 0.0836
+Precision:
+  Mean = 0.9564
+  Std  = 0.0464
+Specificity:
+  Mean = 0.8914
+  Std  = 0.0836
+MCC:
+  Mean = 0.8671
+  Std  = 0.0728
+Number of Features:
+  Mean = 13.4000
+  Std  = 11.2978
+
+Algorithm: gwo12
+Accuracy:
+  Mean = 0.9797
+  Std  = 0.0166
+Sensitivity:
+  Mean = 0.9598
+  Std  = 0.0413
+Precision:
+  Mean = 0.9909
+  Std  = 0.0273
+Specificity:
+  Mean = 0.9598
+  Std  = 0.0413
+MCC:
+  Mean = 0.9584
+  Std  = 0.0341
+Number of Features:
+  Mean = 10.3000
+  Std  = 4.1964
+
+Algorithm: gwo13
+Accuracy:
+  Mean = 0.8574
+  Std  = 0.0326
+Sensitivity:
+  Mean = 0.8116
+  Std  = 0.0467
+Precision:
+  Mean = 0.8610
+  Std  = 0.0844
+Specificity:
+  Mean = 0.8116
+  Std  = 0.0467
+MCC:
+  Mean = 0.7067
+  Std  = 0.0733
+Number of Features:
+  Mean = 3.1000
+  Std  = 1.4457
+
+Algorithm: gwo14
+Accuracy:
+  Mean = 0.9220
+  Std  = 0.0338
+Sensitivity:
+  Mean = 0.8897
+  Std  = 0.0663
+Precision:
+  Mean = 0.9350
+  Std  = 0.0643
+Specificity:
+  Mean = 0.8897
+  Std  = 0.0663
+MCC:
+  Mean = 0.8426
+  Std  = 0.0689
+Number of Features:
+  Mean = 3.4000
+  Std  = 2.2000
+
+Algorithm: gwo15
+Accuracy:
+  Mean = 0.9864
+  Std  = 0.0223
+Sensitivity:
+  Mean = 0.9702
+  Std  = 0.0496
+Precision:
+  Mean = 1.0000
+  Std  = 0.0000
+Specificity:
+  Mean = 0.9702
+  Std  = 0.0496
+MCC:
+  Mean = 0.9728
+  Std  = 0.0439
+Number of Features:
+  Mean = 10.0000
+  Std  = 3.4641
+
+Algorithm: gwo16
+Accuracy:
+  Mean = 0.9831
+  Std  = 0.0225
+Sensitivity:
+  Mean = 0.9625
+  Std  = 0.0503
+Precision:
+  Mean = 1.0000
+  Std  = 0.0000
+Specificity:
+  Mean = 0.9625
+  Std  = 0.0503
+MCC:
+  Mean = 0.9661
+  Std  = 0.0443
+Number of Features:
+  Mean = 14.9000
+  Std  = 5.3935
+
+Algorithm: gwo17
+Accuracy:
+  Mean = 0.7452
+  Std  = 0.0950
+Sensitivity:
+  Mean = 0.5272
+  Std  = 0.2020
+Precision:
+  Mean = 0.8282
+  Std  = 0.1262
+Specificity:
+  Mean = 0.5272
+  Std  = 0.2020
+MCC:
+  Mean = 0.4810
+  Std  = 0.1990
+Number of Features:
+  Mean = 66.8000
+  Std  = 3.0594

@@ -3,6 +3,7 @@ import time
 import random
 
 # 全局变量
+# 修改storage与resultlist
 thread_storage = [None] * 6
 result_list = [0] * 6
 result_used_flag = [False] * 6

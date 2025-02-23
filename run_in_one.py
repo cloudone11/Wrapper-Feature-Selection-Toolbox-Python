@@ -16,7 +16,7 @@ import traceback
 # Parameters
 k = 5  # k-value in KNN
 N = 30 # Number of particles
-T = 100  # Maximum number of iterations
+T = 300  # Maximum number of iterations
 opts = {'k': k, 'N': N, 'T': T}
 
 # Define algorithms to run

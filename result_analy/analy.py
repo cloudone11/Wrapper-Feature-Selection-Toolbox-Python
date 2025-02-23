@@ -118,13 +118,13 @@ def analyze_high_accuracy_feature_selection(input_file_path, output_folder_path)
         f.write(f"Maximum Number of Features: {max_feature_count}\n")
 
 if __name__ == '__main__':
-    analyze_results_by_algo(r'result_analy\BKAmi0.2t500\experiment_results_0_mi_0.2.json', r'result_analy\BKAmi0.2t500')
-    # analyze_results_by_algo(r'result_analy\n30mi0.2t300\experiment_results_1_mi_0.2.json', r'result_analy\n30mi0.2t300')
-    # analyze_results_by_algo(r'result_analy\n30mi0.2t300\experiment_results_2_mi_0.2.json', r'result_analy\n30mi0.2t300')
+    analyze_results_by_algo(r'result_analy\n30mi0.2t300gwo1-17\experiment_results_0_mi_0.2.json', r'result_analy\n30mi0.2t300gwo1-17')
+    analyze_results_by_algo(r'result_analy\n30mi0.2t300gwo1-17\experiment_results_1_mi_0.2.json', r'result_analy\n30mi0.2t300gwo1-17')
+    analyze_results_by_algo(r'result_analy\n30mi0.2t300gwo1-17\experiment_results_2_mi_0.2.json', r'result_analy\n30mi0.2t300gwo1-17')
     # 总结：sobol初始种群的实验结果较优，但无明显差距。
-    # analyze_high_accuracy_feature_selection(r'result_analy\base\experiment_results_0.json', r'result_analy\base')
-    # analyze_high_accuracy_feature_selection(r'result_analy\base\experiment_results_1.json', r'result_analy\base')
-    # analyze_high_accuracy_feature_selection(r'result_analy\base\experiment_results_2.json', r'result_analy\base')
+    # analyze_high_accuracy_feature_selection(r'result_analy\n30mi0.2t300gwo1-17\experiment_results_0_mi_0.2.json', r'result_analy\n30mi0.2t300gwo1-17')
+    # analyze_high_accuracy_feature_selection(r'result_analy\n30mi0.2t300gwo1-17\experiment_results_1_mi_0.2.json', r'result_analy\n30mi0.2t300gwo1-17')
+    # analyze_high_accuracy_feature_selection(r'result_analy\n30mi0.2t300gwo1-17\experiment_results_2_mi_0.2.json', r'result_analy\n30mi0.2t300gwo1-17')
     # 总结：可以在少量特征的情况下获得高准确率，特征数目与准确率没有明显正相关性。
     # 下一步可以尝试使用随机反向特征选择算法，减少特征数目，影响准确率。
     # 放弃参数0.2
