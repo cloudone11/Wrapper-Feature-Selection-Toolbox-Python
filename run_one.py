@@ -56,16 +56,18 @@ fold = {'xt':xtrain, 'yt':ytrain, 'xv':xtest, 'yv':ytest}
 
 # parameter
 k    = 5     # k-value in KNN
-N    = 10    # number of particles
-T    = 50   # maximum number of iterations
+N    = 30    # number of particles
+T    = 500   # maximum number of iterations
 alpha= 0.90
-opts = {'k':k, 'fold':fold, 'N':N, 'T':T, 'alpha':alpha,'fold':fold}
+# opts = {'k':k, 'fold':fold, 'N':N, 'T':T, 'alpha':alpha,'fold':fold}
+opts = {'k':k, 'fold':fold, 'N':N, 'T':T, 'alpha':alpha}
 start_time = time.time()
 xtrain_placeholder = np.zeros_like(xtrain)
+ytrain_placeholder = np.zeros_like(ytrain)
 # initial static classifier
 staticClassifier = np_knn_classifier_for_static_data(xtrain,ytrain,xtest,ytest,k)
 # perform feature selection
-fmdl = jfs(xtrain_placeholder,ytrain, opts,staticClassifier)
+fmdl = jfs(xtrain_placeholder,ytrain_placeholder, opts,staticClassifier)
 sf   = fmdl['sf']
 print(sf)
 # model with selected features
