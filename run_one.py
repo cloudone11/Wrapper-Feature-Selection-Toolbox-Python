@@ -11,6 +11,8 @@ from utils.mClassifier import knn_classifier_for_static_data, np_knn_classifier_
 import pandas as pd
 import numpy as np
 import time
+# initialize the random seed
+np.random.seed(42)
 # Load data
 data = pd.read_csv(r'./data/merged_df23.csv')
 
@@ -56,15 +58,14 @@ fold = {'xt':xtrain, 'yt':ytrain, 'xv':xtest, 'yv':ytest}
 k    = 5     # k-value in KNN
 N    = 10    # number of particles
 T    = 50   # maximum number of iterations
-dim  = np.size(xtrain,1) # the dim
 alpha= 0.90
 opts = {'k':k, 'fold':fold, 'N':N, 'T':T, 'alpha':alpha,'fold':fold}
 start_time = time.time()
-
+xtrain_placeholder = np.zeros_like(xtrain)
 # initial static classifier
 staticClassifier = np_knn_classifier_for_static_data(xtrain,ytrain,xtest,ytest,k)
 # perform feature selection
-fmdl = jfs(feat, label, opts)
+fmdl = jfs(xtrain_placeholder,ytrain, opts,staticClassifier)
 sf   = fmdl['sf']
 print(sf)
 # model with selected features

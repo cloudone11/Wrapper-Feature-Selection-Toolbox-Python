@@ -35,7 +35,7 @@ def boundary(x, lb, ub):
     return x
     
 
-def jfs(xtrain, ytrain, opts):
+def jfs(xtrain, ytrain, opts, staticClassifier = None):
     # Parameters
     ub    = 1
     lb    = 0
@@ -64,7 +64,8 @@ def jfs(xtrain, ytrain, opts):
     Falpha = float('inf')
     Fbeta  = float('inf')
     Fdelta = float('inf')
-    
+    newFit = np.zeros_like(fit)
+    # newFit    = opts['alpha']*staticClassifier.muti_classifier([Xbin]).reshape(-1,1) + (1-opts['alpha'])*np.sum(Xbin,axis=1).reshape(-1,1)/dim
     for i in range(N):
         fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)
         if fit[i,0] < Falpha:
@@ -120,6 +121,8 @@ def jfs(xtrain, ytrain, opts):
         
         # Fitness
         # 注意：此处有优化空间，可增加并行计算
+        
+        # newFit    = opts['alpha']*staticClassifier.muti_classifier([Xbin]).reshape(-1,1) + (1-opts['alpha'])*np.sum(Xbin,axis=1).reshape(-1,1)
         for i in range(N):
             fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)
             if fit[i,0] < Falpha:

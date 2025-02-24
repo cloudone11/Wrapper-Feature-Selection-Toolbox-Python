@@ -1,7 +1,7 @@
 import cupy as cp
 import numpy as np
 import time
-from FS.functionHO import error_rate
+# from FS.functionHO import error_rate
 # 数据名称	形状	时间 (秒)	人口数量
 # xtrain	(20, 170)	-	-
 # xtest	(180, 20, 170)	-	-
@@ -44,16 +44,16 @@ class knn_classifier_for_static_data:
     def __init__(self,xtrain,ytrain,xtest,ytest,k):
         # 这里写一些维度检查的代码--暂无
         if is_strict_binary_matrix(ytest) and is_strict_binary_matrix(ytrain):
-            ##print('the y and ytrain passed')
+            #print('the y and ytrain passed')
             1
         else:
-            ##print('the y and ytrain did not passed')
+            #print('the y and ytrain did not passed')
             raise Exception('Input matrices ytest and ytrain are not strict binary matrices')
         # 这里写初始化GPU数据的代码
         n1,dim = xtrain.shape
         n2,dim  = xtest.shape
         xtrain = cp.asarray(xtrain)
-        ##print("xtrain shape:", xtrain.shape)
+        #print("xtrain shape:", xtrain.shape)
         xtest  = cp.asarray(xtest )
         xtrain = cp.broadcast_to(xtrain[cp.newaxis,:,:],(n2,n1,dim))
         xtest  = cp.broadcast_to(xtest[:,cp.newaxis,:],(n2,n1,dim))
@@ -132,6 +132,9 @@ class np_knn_classifier_for_static_data:
         else:
             #print('the y and ytrain did not passed')
             raise Exception('Input matrices ytest and ytrain are not strict binary matrices')
+        ytrain = ytrain.reshape(-1,1)
+        ytest  = ytest.reshape(-1,1)
+        
         # 这里写初始化GPU数据的代码
         n1,dim = xtrain.shape
         n2,dim  = xtest.shape
@@ -162,11 +165,13 @@ class np_knn_classifier_for_static_data:
     def muti_classifier(self,populationList):
         # 这里写一些维度检查的代码--暂无
         # 这里写一些将数据放入GPU的代码
-        the_population = populationList[0].shape[1]
+        the_population = populationList[0].shape[0]
         #print('the population ',the_population)
         # 这一步是错的，需要将原本矩阵按列合并
-        combined_array = np.concatenate(populationList,axis=1)
+        combined_array = np.concatenate(populationList,axis=0)
         #print("合并后的 NumPy 数组形状:", combined_array.shape)
+        combined_array = combined_array.T
+        #print('转置后的矩阵形状')
         if is_strict_binary_matrix(combined_array):
             #print('pass check')
             1
@@ -226,12 +231,12 @@ if __name__ == '__main__':
         st = time.time()
         error1 = newKnnClassifier.muti_classifier(list_4x2)
         et = time.time()
-        print('time used in GPU', et - st)
-        # print(error)
+        #print('time used in GPU', et - st)
+        # #print(error)
         error2 = newKnnClassifier_np.muti_classifier(list_4x2)
-        print('time used CPU ',time.time()-et)
-        print('error 1 : \n',error1)
-        print('error 2 : \n',error2)
+        #print('time used CPU ',time.time()-et)
+        #print('error 1 : \n',error1)
+        #print('error 2 : \n',error2)
     for i in range(len(the_choice)):    
         error3 = np.zeros(30*the_choice[i])
         k = 5
@@ -246,9 +251,9 @@ if __name__ == '__main__':
         et = time.time()
         for i in range(error3.shape[0]):
             error3[i] = error_rate(matrix_4x4,matrix_4x1,np.round(list_4x2[i//30][:,i%30]),opts=opts)
-        print("for native knn classifier, used time: ", time.time()-et)    
+        #print("for native knn classifier, used time: ", time.time()-et)    
         
-        print('error 3 : \n',error3)
+        #print('error 3 : \n',error3)
         
     import numpy as np
 
@@ -280,12 +285,12 @@ if __name__ == '__main__':
 
     # 使用分类器
     predictions = knn(X_train, y_train, X_test, k=3)
-    print("预测标签:", predictions)
+    #print("预测标签:", predictions)
     from sklearn.neighbors import KNeighborsClassifier
     mdl = KNeighborsClassifier(n_neighbors=3)
     mdl.fit(X_train, y_train)
     ypred = mdl.predict(X_test)
-    print("预测标签:", ypred)
+    #print("预测标签:", ypred)
     import numpy as np
 
     # 创建一个NumPy数组
@@ -294,7 +299,7 @@ if __name__ == '__main__':
     # 对数组进行逐元素开方
     sqrt_matrix = np.sqrt(matrix)
 
-    print(sqrt_matrix)
+    #print(sqrt_matrix)
     
 
     matrix = np.array([[0, 1, 1],
@@ -302,4 +307,4 @@ if __name__ == '__main__':
                 [0, 0, 0]])
 
     result = is_strict_binary_matrix(matrix)
-    print("Is the matrix a strict binary matrix?", result)
+    #print("Is the matrix a strict binary matrix?", result)

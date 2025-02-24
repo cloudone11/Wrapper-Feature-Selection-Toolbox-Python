@@ -13,19 +13,19 @@ import time
 import matplotlib.pyplot as plt
 import traceback
 
-# Parameters
-k = 5  # k-value in KNN
-N = 30 # Number of particles
-T = 300  # Maximum number of iterations
-opts = {'k': k, 'N': N, 'T': T}
+# # Parameters
+# k = 5  # k-value in KNN
+# N = 30 # Number of particles
+# T = 300  # Maximum number of iterations
+# opts = {'k': k, 'N': N, 'T': T}
 
 # Define algorithms to run
 # algorithms = ["ibka1h", "ibka2h", "ibka3h", "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
-algorithms = ['gwo15']
+algorithms = ['sogwo']
 # algorithms = ['gwo1','gwo6','gwo7','gwo8','gwo9','gwo10','gwo11','gwo12','gwo13','gwo14','gwo15','gwo16','gwo17']
 # algorithms = [ "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
 # Function to run the algorithm and collect metrics
-def run_algorithm(algo, train_index, test_index, feat, label):
+def run_algorithm(algo, train_index, test_index, feat, label,opts):
     # Dynamically import the module
     module_name = f"FS.{algo}"
     module = importlib.import_module(module_name)
@@ -46,7 +46,7 @@ def run_algorithm(algo, train_index, test_index, feat, label):
     y_train = ytrain
     x_valid = xtest[:, sf]
     y_valid = ytest
-
+    k       = opts['k']
     mdl = KNeighborsClassifier(n_neighbors=k)
     mdl.fit(x_train, y_train)
 
@@ -142,8 +142,8 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0):
     else:
         print("Invalid input")
     k = 5  # k-value in KNN
-    N = 10  # Number of particles
-    T = 100  # Maximum number of iterations
+    N = 30  # Number of particles
+    T = 500  # Maximum number of iterations
     opts = {'k': k, 'N': N, 'T': T}
     results = []
     accuracy_scores = []
@@ -152,7 +152,7 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0):
     for algo in algorithms:
         print(f"Running experiment with algorithm: {algo}")
         fold_results = []
-        for j in tqdm(range(1), desc=f"Algorithm: {algo}", unit="run"):
+        for j in tqdm(range(10), desc=f"Algorithm: {algo}", unit="run"):
             # set the static knn classifier
             knnClassifierList = []
             for fold, (train_index, test_index) in enumerate(kf.split(feat)):
@@ -162,7 +162,7 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0):
                 #     continue
                 # try - catch block to handle exceptions
                 try:
-                    result = run_algorithm(algo, train_index, test_index, feat, label)
+                    result = run_algorithm(algo, train_index, test_index, feat, label,opts)
                     result['Fold'] = fold + 1  # Add fold number to result
                     result['Run'] = j + 1
                     fold_results.append(result)
