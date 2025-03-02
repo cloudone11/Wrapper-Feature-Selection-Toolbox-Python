@@ -99,7 +99,7 @@ def jfs(xtrain, ytrain, opts):
     curve[0,t] = Falpha.copy()
     t += 1
     # set the parameters of the algorithm
-    penalty = 0.01
+    penalty = 0.02
     while t < max_iter:
         # Coefficient decreases linearly from 2 to 0 
         a = 2 - t * (2 / max_iter)

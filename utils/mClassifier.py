@@ -125,7 +125,6 @@ class knn_classifier_for_static_data:
         return cp.asnumpy(error)
 class np_knn_classifier_for_static_data:
     def __init__(self,xtrain,ytrain,xtest,ytest,k):
-        # 这里写一些维度检查的代码--暂无
         if is_strict_binary_matrix(ytest) and is_strict_binary_matrix(ytrain):
             #print('the y and ytrain passed')
             1
@@ -134,10 +133,15 @@ class np_knn_classifier_for_static_data:
             raise Exception('Input matrices ytest and ytrain are not strict binary matrices')
         ytrain = ytrain.reshape(-1,1)
         ytest  = ytest.reshape(-1,1)
-        
+        # 这里写初始化输入数据类型的代码
+        xtrain,xtest = np.asarray(xtrain,dtype='float'),np.asarray(xtest,dtype='float')
+        ytrain,ytest = np.asarray(ytrain,dtype='int'),np.asarray(ytest,dtype='int')
         # 这里写初始化GPU数据的代码
         n1,dim = xtrain.shape
-        n2,dim  = xtest.shape
+        n2,dim1  = xtest.shape
+        if dim1 != dim or ytrain.shape[0]!= n1 or ytest.shape[0]!=n2 :
+            print('the input is invalid')
+            raise Exception('input error in dimension')
         # xtrain = cp.asarray(xtrain)
         #print("xtrain shape:", xtrain.shape)
         # xtest  = cp.asarray(xtest )

@@ -4,7 +4,7 @@ from sklearn.feature_selection import mutual_info_classif, chi2, SelectKBest
 from sklearn.preprocessing import LabelEncoder
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
-from FS.gwo import jfs   # change this to switch algorithm 
+from FS.gwosca import jfs   # change this to switch algorithm 
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, precision_score, f1_score
 from utils.mClassifier import knn_classifier_for_static_data, np_knn_classifier_for_static_data
@@ -12,7 +12,7 @@ import pandas as pd
 import numpy as np
 import time
 # Load data
-data = pd.read_csv(r'./data/merged_df23.csv')
+data = pd.read_csv(r'./data/merged_df12.csv')
 
 # 删除包含缺失值的行
 data = data.dropna()
@@ -54,8 +54,8 @@ fold = {'xt':xtrain, 'yt':ytrain, 'xv':xtest, 'yv':ytest}
 
 # parameter
 k    = 5     # k-value in KNN
-N    = 10    # number of particles
-T    = 50   # maximum number of iterations
+N    = 30    # number of particles
+T    = 100   # maximum number of iterations
 dim  = np.size(xtrain,1) # the dim
 alpha= 0.90
 opts = {'k':k, 'fold':fold, 'N':N, 'T':T, 'alpha':alpha,'fold':fold}

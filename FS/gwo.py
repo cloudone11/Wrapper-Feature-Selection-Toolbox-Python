@@ -35,7 +35,7 @@ def boundary(x, lb, ub):
     return x
     
 
-def jfs(xtrain, ytrain, opts, staticClassifier = None):
+def jfs(xtrain, ytrain, opts):
     # Parameters
     ub    = 1
     lb    = 0
@@ -64,9 +64,9 @@ def jfs(xtrain, ytrain, opts, staticClassifier = None):
     Falpha = float('inf')
     Fbeta  = float('inf')
     Fdelta = float('inf')
-    fit    = opts['alpha']*staticClassifier.muti_classifier([Xbin]).reshape(-1,1) + (1-opts['alpha'])*np.sum(Xbin,axis=1).reshape(-1,1)/dim
+    # fit    = opts['alpha']*staticClassifier.muti_classifier([Xbin]).reshape(-1,1) + (1-opts['alpha'])*np.sum(Xbin,axis=1).reshape(-1,1)/dim
     for i in range(N):
-        # fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)
+        fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)
         if fit[i,0] < Falpha:
             Xalpha[0,:] = X[i,:]
             Falpha      = fit[i,0]
@@ -121,7 +121,7 @@ def jfs(xtrain, ytrain, opts, staticClassifier = None):
         # Fitness
         # 注意：此处有优化空间，可增加并行计算
         
-        fit    = opts['alpha']*staticClassifier.muti_classifier([Xbin]).reshape(-1,1) + (1-opts['alpha'])*np.sum(Xbin,axis=1).reshape(-1,1)/dim
+        # fit    = opts['alpha']*staticClassifier.muti_classifier([Xbin]).reshape(-1,1) + (1-opts['alpha'])*np.sum(Xbin,axis=1).reshape(-1,1)/dim
         for i in range(N):
             fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)
             if fit[i,0] < Falpha:

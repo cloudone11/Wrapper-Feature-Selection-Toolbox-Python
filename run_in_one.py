@@ -21,9 +21,10 @@ import traceback
 
 # Define algorithms to run
 # algorithms = ["ibka1h", "ibka2h", "ibka3h", "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
-algorithms = ['sogwo']
+# algorithms = ['gwo','gwos','gwo8s','gwo8h','gwo8l','gwo12s','gwo12h','gwo12l','gwo15s','gwo15h','gwo15l',"woa", "ja", "pso", "sca", "ssa", "bka",'ba','bka','cs','de','fa','fpa','ga']
+# algorithms  = ["woa", "ja", "pso", "sca", "ssa", "gwo", "bka",'ba','bka','cs','de','fa','fpa','ga']
 # algorithms = ['gwo1','gwo6','gwo7','gwo8','gwo9','gwo10','gwo11','gwo12','gwo13','gwo14','gwo15','gwo16','gwo17']
-# algorithms = [ "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
+algorithms = ['gwosca']
 # Function to run the algorithm and collect metrics
 def run_algorithm(algo, train_index, test_index, feat, label,opts):
     # Dynamically import the module
@@ -143,7 +144,7 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0):
         print("Invalid input")
     k = 5  # k-value in KNN
     N = 30  # Number of particles
-    T = 500  # Maximum number of iterations
+    T = 100  # Maximum number of iterations
     opts = {'k': k, 'N': N, 'T': T}
     results = []
     accuracy_scores = []
@@ -162,9 +163,15 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0):
                 #     continue
                 # try - catch block to handle exceptions
                 try:
+                    stime   = time.time()
                     result = run_algorithm(algo, train_index, test_index, feat, label,opts)
+                    etime   = time.time()
                     result['Fold'] = fold + 1  # Add fold number to result
                     result['Run'] = j + 1
+                    result['pre_feature_selection_algorithm'] = pre_feature_selection_algorithm
+                    result['feature_drop_rate']               = feature_drop_rate
+                    result['dataPath']                        = i
+                    result['time'] = etime-stime
                     fold_results.append(result)
                     num_feat.append(result['Number of Features'])
                     accuracy_scores.append(result['Accuracy'])
@@ -208,9 +215,9 @@ if __name__ == '__main__':
     # worker(0, 'mi', 0.2)
     # worker(0, 'chi2', 0.2)
     
-    # worker(0, 'none', 0.2)
-    # worker(1, 'none', 0.2)
-    # worker(2, 'none', 0.2)
+    worker(0, 'none', 0.2)
+    worker(1, 'none', 0.2)
+    worker(2, 'none', 0.2)
     
     # worker(0, 'mi', 0.2)
     # worker(1, 'mi', 0.2)
@@ -230,5 +237,5 @@ if __name__ == '__main__':
     # 0	experiment_results_0_chi2_0.2.json	31.0100	0.9198	19.48
     # 1	experiment_results_1_chi2_0.2.json	23.8800	0.9613	19.05
     
-    worker(0, 'mi', 0.2)
+    # worker(0, 'mi', 0.2)
     

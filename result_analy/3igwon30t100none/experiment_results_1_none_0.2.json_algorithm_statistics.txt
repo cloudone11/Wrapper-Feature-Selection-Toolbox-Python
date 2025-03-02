@@ -1,0 +1,61 @@
+Algorithm Statistics:
+
+Algorithm: gwo8
+Accuracy:
+  Mean = 0.9762
+  Std  = 0.0232
+Sensitivity:
+  Mean = 0.9481
+  Std  = 0.0530
+Precision:
+  Mean = 0.9993
+  Std  = 0.0071
+Specificity:
+  Mean = 0.9481
+  Std  = 0.0530
+MCC:
+  Mean = 0.9523
+  Std  = 0.0459
+Number of Features:
+  Mean = 20.1800
+  Std  = 7.2186
+
+Algorithm: gwo12
+Accuracy:
+  Mean = 0.9745
+  Std  = 0.0255
+Sensitivity:
+  Mean = 0.9429
+  Std  = 0.0560
+Precision:
+  Mean = 1.0000
+  Std  = 0.0000
+Specificity:
+  Mean = 0.9429
+  Std  = 0.0560
+MCC:
+  Mean = 0.9489
+  Std  = 0.0501
+Number of Features:
+  Mean = 20.1400
+  Std  = 7.5618
+
+Algorithm: gwo15
+Accuracy:
+  Mean = 0.9759
+  Std  = 0.0240
+Sensitivity:
+  Mean = 0.9481
+  Std  = 0.0556
+Precision:
+  Mean = 0.9982
+  Std  = 0.0127
+Specificity:
+  Mean = 0.9481
+  Std  = 0.0556
+MCC:
+  Mean = 0.9516
+  Std  = 0.0478
+Number of Features:
+  Mean = 19.7700
+  Std  = 6.5983

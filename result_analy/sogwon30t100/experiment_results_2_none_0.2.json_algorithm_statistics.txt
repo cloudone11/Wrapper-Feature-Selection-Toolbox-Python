@@ -1,0 +1,21 @@
+Algorithm Statistics:
+
+Algorithm: sogwo
+Accuracy:
+  Mean = 0.9677
+  Std  = 0.0289
+Sensitivity:
+  Mean = 0.9983
+  Std  = 0.0099
+Precision:
+  Mean = 0.9407
+  Std  = 0.0534
+Specificity:
+  Mean = 0.9983
+  Std  = 0.0099
+MCC:
+  Mean = 0.9375
+  Std  = 0.0550
+Number of Features:
+  Mean = 27.5600
+  Std  = 9.6211

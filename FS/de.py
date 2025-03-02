@@ -78,8 +78,8 @@ def jfs(xtrain, ytrain, opts):
     t     = 0
     
     curve[0,t] = fitG.copy()
-    print("Generation:", t + 1)
-    print("Best (DE):", curve[0,t])
+    #print("Generation:", t + 1)
+    #print("Best (DE):", curve[0,t])
     t += 1
 
     while t < max_iter:  
@@ -129,8 +129,8 @@ def jfs(xtrain, ytrain, opts):
                 
         # Store result
         curve[0,t] = fitG.copy()
-        print("Generation:", t + 1)
-        print("Best (DE):", curve[0,t])
+        #print("Generation:", t + 1)
+        #print("Best (DE):", curve[0,t])
         t += 1            
 
             

@@ -1,0 +1,21 @@
+Algorithm Statistics:
+
+Algorithm: ala
+Accuracy:
+  Mean = 0.9674
+  Std  = 0.0288
+Sensitivity:
+  Mean = 0.9311
+  Std  = 0.0635
+Precision:
+  Mean = 0.9954
+  Std  = 0.0188
+Specificity:
+  Mean = 0.9311
+  Std  = 0.0635
+MCC:
+  Mean = 0.9342
+  Std  = 0.0576
+Number of Features:
+  Mean = 23.0400
+  Std  = 15.7594

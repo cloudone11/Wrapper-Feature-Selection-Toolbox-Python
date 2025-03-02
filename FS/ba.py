@@ -91,8 +91,8 @@ def jfs(xtrain, ytrain, opts):
     t     = 0
     
     curve[0,t] = fitG.copy()
-    print("Generation:", t + 1)
-    print("Best (BA):", curve[0,t])
+    #print("Generation:", t + 1)
+    #print("Best (BA):", curve[0,t])
     t += 1
     
     # Initial loudness [1 ~ 2] & pulse rate [0 ~ 1]
@@ -146,8 +146,8 @@ def jfs(xtrain, ytrain, opts):
              
         # Store result
         curve[0,t] = fitG.copy()
-        print("Generation:", t + 1)
-        print("Best (BA):", curve[0,t])
+        #print("Generation:", t + 1)
+        #print("Best (BA):", curve[0,t])
         t += 1            
 
             

@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from collections import defaultdict
 import os
+from openpyxl import Workbook
 
 # 假设数据存储在data.json文件中，结构为包含多个类似示例条目的列表
 # 这里用示例数据演示，实际需要替换为完整数据
@@ -59,7 +60,7 @@ def analyze_results_by_algo(input_file_path, output_folder_path):
             'mean_convergence': mean_convergence
         }
 
-    # 输出统计结果到文件
+    # 输出统计结果到文本文件
     output_file_path = os.path.join(output_folder_path, f'{file_name}_algorithm_statistics.txt')
     with open(output_file_path, 'w') as f:
         f.write("Algorithm Statistics:\n")
@@ -69,6 +70,27 @@ def analyze_results_by_algo(input_file_path, output_folder_path):
                 f.write(f"{metric}:\n")
                 f.write(f"  Mean = {data['metrics'][metric]['mean']:.4f}\n")
                 f.write(f"  Std  = {data['metrics'][metric]['std']:.4f}\n")
+
+    # 输出统计结果到Excel文件
+    excel_file_path = os.path.join(output_folder_path, f'{file_name}_algorithm_statistics.xlsx')
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Algorithm Statistics"
+    
+    # 写入表头
+    headers = ["Algorithm"] + [header for metric in metrics for header in (f"{metric} Mean", f"{metric} Std")]
+    ws.append(headers)
+    
+    # 写入数据
+    for algo, data in statistics.items():
+        row = [algo]
+        for metric in metrics:
+            row.append(data['metrics'][metric]['mean'])
+            row.append(data['metrics'][metric]['std'])
+        ws.append(row)
+    
+    # 保存Excel文件
+    wb.save(excel_file_path)
 
     # 绘制收敛曲线并保存图片
     plt.figure(figsize=(10, 6))
@@ -118,9 +140,9 @@ def analyze_high_accuracy_feature_selection(input_file_path, output_folder_path)
         f.write(f"Maximum Number of Features: {max_feature_count}\n")
 
 if __name__ == '__main__':
-    analyze_results_by_algo(r'result_analy\n30mi0.2t300gwo1-17\experiment_results_0_mi_0.2.json', r'result_analy\n30mi0.2t300gwo1-17')
-    analyze_results_by_algo(r'result_analy\n30mi0.2t300gwo1-17\experiment_results_1_mi_0.2.json', r'result_analy\n30mi0.2t300gwo1-17')
-    analyze_results_by_algo(r'result_analy\n30mi0.2t300gwo1-17\experiment_results_2_mi_0.2.json', r'result_analy\n30mi0.2t300gwo1-17')
+    analyze_results_by_algo(r'result_analy\3igwon30t100none\experiment_results_0_none_0.2.json', r'result_analy\3igwon30t100none')
+    analyze_results_by_algo(r'result_analy\3igwon30t100none\experiment_results_1_none_0.2.json', r'result_analy\3igwon30t100none')
+    analyze_results_by_algo(r'result_analy\3igwon30t100none\experiment_results_2_none_0.2.json', r'result_analy\3igwon30t100none')
     # 总结：sobol初始种群的实验结果较优，但无明显差距。
     # analyze_high_accuracy_feature_selection(r'result_analy\n30mi0.2t300gwo1-17\experiment_results_0_mi_0.2.json', r'result_analy\n30mi0.2t300gwo1-17')
     # analyze_high_accuracy_feature_selection(r'result_analy\n30mi0.2t300gwo1-17\experiment_results_1_mi_0.2.json', r'result_analy\n30mi0.2t300gwo1-17')
