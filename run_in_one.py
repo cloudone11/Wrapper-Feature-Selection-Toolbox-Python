@@ -24,7 +24,7 @@ import traceback
 # algorithms = ['gwo','gwos','gwo8s','gwo8h','gwo8l','gwo12s','gwo12h','gwo12l','gwo15s','gwo15h','gwo15l',"woa", "ja", "pso", "sca", "ssa", "bka",'ba','bka','cs','de','fa','fpa','ga']
 # algorithms  = ["woa", "ja", "pso", "sca", "ssa", "gwo", "bka",'ba','bka','cs','de','fa','fpa','ga']
 # algorithms = ['gwo1','gwo6','gwo7','gwo8','gwo9','gwo10','gwo11','gwo12','gwo13','gwo14','gwo15','gwo16','gwo17']
-algorithms = ['gwosca']
+algorithms = ['gwo']
 # Function to run the algorithm and collect metrics
 def run_algorithm(algo, train_index, test_index, feat, label,opts):
     # Dynamically import the module
@@ -144,7 +144,7 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0):
         print("Invalid input")
     k = 5  # k-value in KNN
     N = 30  # Number of particles
-    T = 100  # Maximum number of iterations
+    T = 50  # Maximum number of iterations
     opts = {'k': k, 'N': N, 'T': T}
     results = []
     accuracy_scores = []
@@ -153,7 +153,7 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0):
     for algo in algorithms:
         print(f"Running experiment with algorithm: {algo}")
         fold_results = []
-        for j in tqdm(range(10), desc=f"Algorithm: {algo}", unit="run"):
+        for j in tqdm(range(30), desc=f"Algorithm: {algo}", unit="run"):
             # set the static knn classifier
             knnClassifierList = []
             for fold, (train_index, test_index) in enumerate(kf.split(feat)):
