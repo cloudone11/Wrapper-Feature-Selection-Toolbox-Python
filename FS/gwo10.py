@@ -143,7 +143,7 @@ def jfs(xtrain, ytrain, opts):
                 X2 = Xbeta[0,d] - A2 * Dbeta
                 X3 = Xdelta[0,d] - A3 * Ddelta
                 # Update wolf (3.7)
-                X[i,d] = (w1 * X1 + w2 * X2 + w3 * X3) / 3
+                X[i,d] = (w1 * X1 + w2 * X2 + w3 * X3)
                 # Boundary
                 X[i,d] = boundary(X[i,d], lb[0,d], ub[0,d])
         

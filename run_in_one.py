@@ -21,7 +21,7 @@ import traceback
 
 # Define algorithms to run
 # algorithms = ["ibka1h", "ibka2h", "ibka3h", "woa", "ja", "pso", "sca", "ssa", "gwo", "bka"]
-# algorithms = ['gwo','gwos','gwo8s','gwo8h','gwo8l','gwo12s','gwo12h','gwo12l','gwo15s','gwo15h','gwo15l',"woa", "ja", "pso", "sca", "ssa", "bka",'ba','bka','cs','de','fa','fpa','ga']
+# algorithms = ['gwo','gwos','gwo8s','gwo8h','gwo8l','gwo12s','gwo12h','gwo12l','gwo15s','gwo15h','gwo15l',"woa", "ja", "pso", "sca", "ssa", "bka",'ba','bka','cs','de','fa','fpa','ga','ala']
 # algorithms  = ["woa", "ja", "pso", "sca", "ssa", "gwo", "bka",'ba','bka','cs','de','fa','fpa','ga']
 # algorithms = ['gwo1','gwo6','gwo7','gwo8','gwo9','gwo10','gwo11','gwo12','gwo13','gwo14','gwo15','gwo16','gwo17']
 algorithms = ['gwo']

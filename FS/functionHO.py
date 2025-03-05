@@ -70,7 +70,7 @@ def error_rate(xtrain, ytrain, x, opts):
 
 # Fun 函数微调
 def Fun(xtrain, ytrain, x, opts):
-    alpha = 0.90
+    alpha = 0.70
     beta = 1 - alpha
     max_feat = len(x)
     num_feat = np.sum(x == 1)

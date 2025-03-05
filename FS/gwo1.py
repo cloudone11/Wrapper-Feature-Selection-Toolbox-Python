@@ -19,7 +19,13 @@ from FS.functionHO import Fun
 # 距离控制参数 a 从2线性减少到0
 # 个体记忆系数 b1​=0.1
 # 群体交流系数 b2​=0.9
-
+def init_position(lb, ub, N, dim):
+    X = np.zeros([N, dim], dtype='float')
+    for i in range(N):
+        for d in range(dim):
+            X[i,d] = lb[0,d] + (ub[0,d] - lb[0,d]) * rand()        
+    
+    return X
 # 没有的信息：西塔的取值。
 # 这些信息涵盖了原文的主要内容。
 def init_position_chaotic(lb, ub, N, dim, k = 5):
@@ -123,7 +129,8 @@ def jfs(xtrain, ytrain, opts):
         # Random adjustment strategy for control parameter a
         a_initial = 2
         a_final = 0
-        a = a_initial - (a_initial - a_final) * rand() + 0.1 * randn()
+        # a = a_initial - (a_initial - a_final) * rand() + 0.1 * randn()
+        a = 2 - t * (2 / max_iter)
 
         # Update positions
         for i in range(N):
@@ -149,7 +156,10 @@ def jfs(xtrain, ytrain, opts):
                 # Modified position update equation
                 r3 = rand()
                 r4 = rand()
-                Xj = X[np.random.randint(0, N), d]  # Randomly select another wolf
+                j  = np.random.randint(0, N)
+                while j == i :
+                    j = np.random.randint(0, N)
+                Xj = X[j, d]  # Randomly select another wolf
                 P_ibest = XhistoryBest[i,d]  # Best position of the wolf，没有实现记忆功能，0.1，b1,b2是常数。
                 X[i, d] = update_position_improved(X[i, d], Xalpha[0, d], Xbeta[0, d], Xdelta[0, d], P_ibest, Xj, a, b1, b2, r3, r4)
 

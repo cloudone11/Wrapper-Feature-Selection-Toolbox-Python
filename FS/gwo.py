@@ -92,28 +92,20 @@ def jfs(xtrain, ytrain, opts):
       	# Coefficient decreases linearly from 2 to 0 
         a = 2 - t * (2 / max_iter) 
         
-        for i in range(N):
-            for d in range(dim):
-                # Parameter C (3.4)
-                C1     = 2 * rand()
-                C2     = 2 * rand()
-                C3     = 2 * rand()
-                # Compute Dalpha, Dbeta & Ddelta (3.5)
-                Dalpha = abs(C1 * Xalpha[0,d] - X[i,d]) 
-                Dbeta  = abs(C2 * Xbeta[0,d] - X[i,d])
-                Ddelta = abs(C3 * Xdelta[0,d] - X[i,d])
-                # Parameter A (3.3)
-                A1     = 2 * a * rand() - a
-                A2     = 2 * a * rand() - a
-                A3     = 2 * a * rand() - a
-                # Compute X1, X2 & X3 (3.6) 
-                X1     = Xalpha[0,d] - A1 * Dalpha
-                X2     = Xbeta[0,d] - A2 * Dbeta
-                X3     = Xdelta[0,d] - A3 * Ddelta
-                # Update wolf (3.7)
-                X[i,d] = (X1 + X2 + X3) / 3                
-                # Boundary
-                X[i,d] = boundary(X[i,d], lb[0,d], ub[0,d])
+        # Vectorized implementation
+        # Generate random matrices
+        C = 2 * rand(N, dim, 3)  # C1,C2,C3
+        A = 2 * a * rand(N, dim, 3) - a  # A1,A2,A3
+        
+        # Compute distances
+        D = np.abs(C * np.stack([Xalpha, Xbeta, Xdelta], axis=2) - X[:,:,None])
+        
+        # Compute new positions
+        X_new = (np.stack([Xalpha, Xbeta, Xdelta], axis=2) - A * D)
+        X = np.mean(X_new, axis=2)
+        
+        # Apply boundary constraints
+        X = np.clip(X, lb, ub)
         
         # Binary conversion
         Xbin  = binary_conversion(X, thres, N, dim)
@@ -151,9 +143,4 @@ def jfs(xtrain, ytrain, opts):
     # Create dictionary
     gwo_data = {'sf': sel_index, 'c': curve, 'nf': num_feat}
     
-    return gwo_data 
-        
-                
-                
-                
-    
+    return gwo_data

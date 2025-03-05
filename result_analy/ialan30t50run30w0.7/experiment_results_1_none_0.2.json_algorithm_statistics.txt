@@ -1,0 +1,101 @@
+Algorithm Statistics:
+
+Algorithm: alaFgwo copy
+Accuracy:
+  Mean = 0.9502
+  Std  = 0.0360
+Sensitivity:
+  Mean = 0.9004
+  Std  = 0.0742
+Precision:
+  Mean = 0.9879
+  Std  = 0.0345
+Specificity:
+  Mean = 0.9004
+  Std  = 0.0742
+MCC:
+  Mean = 0.9002
+  Std  = 0.0726
+Number of Features:
+  Mean = 15.6633
+  Std  = 8.3164
+
+Algorithm: alaFgwo
+Accuracy:
+  Mean = 0.9357
+  Std  = 0.0384
+Sensitivity:
+  Mean = 0.8794
+  Std  = 0.0761
+Precision:
+  Mean = 0.9768
+  Std  = 0.0510
+Specificity:
+  Mean = 0.8794
+  Std  = 0.0761
+MCC:
+  Mean = 0.8716
+  Std  = 0.0767
+Number of Features:
+  Mean = 12.4533
+  Std  = 8.0598
+
+Algorithm: alaGgwo
+Accuracy:
+  Mean = 0.9579
+  Std  = 0.0308
+Sensitivity:
+  Mean = 0.9177
+  Std  = 0.0661
+Precision:
+  Mean = 0.9880
+  Std  = 0.0328
+Specificity:
+  Mean = 0.9177
+  Std  = 0.0661
+MCC:
+  Mean = 0.9148
+  Std  = 0.0634
+Number of Features:
+  Mean = 13.9733
+  Std  = 6.8760
+
+Algorithm: alaLgwo copy
+Accuracy:
+  Mean = 0.9335
+  Std  = 0.0453
+Sensitivity:
+  Mean = 0.8603
+  Std  = 0.0974
+Precision:
+  Mean = 0.9866
+  Std  = 0.0402
+Specificity:
+  Mean = 0.8603
+  Std  = 0.0974
+MCC:
+  Mean = 0.8672
+  Std  = 0.0918
+Number of Features:
+  Mean = 65.0400
+  Std  = 7.1990
+
+Algorithm: alaLgwo
+Accuracy:
+  Mean = 0.9200
+  Std  = 0.0460
+Sensitivity:
+  Mean = 0.8377
+  Std  = 0.0961
+Precision:
+  Mean = 0.9792
+  Std  = 0.0515
+Specificity:
+  Mean = 0.8377
+  Std  = 0.0961
+MCC:
+  Mean = 0.8411
+  Std  = 0.0931
+Number of Features:
+  Mean = 72.0033
+  Std  = 6.1722
