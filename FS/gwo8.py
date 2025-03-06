@@ -117,7 +117,7 @@ def jfs(xtrain, ytrain, opts):
                 if abs(a) >= 1:
                     X[i, d] = (X1 + X2 + X3 + X4) / 4
                 else:
-                    X[i, d] = (X1 + X2) / 2
+                    X[i, d] = X1
 
                 # Boundary
                 X[i, d] = boundary(X[i, d], lb[0, d], ub[0, d])

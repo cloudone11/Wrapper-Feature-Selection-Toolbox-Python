@@ -50,6 +50,10 @@ def jfs(xtrain, ytrain, opts):
     Max_iter = opts['T']
     dim = np.size(xtrain, 1)
 
+    if 'runcec' in opts and opts['runcec'] ==True:
+        ub = opts['ub']
+        lb = opts['lb']
+        
     # Initialize position
     X = initialization(N, dim, ub, lb)
     Xnew = np.zeros((N, dim), dtype='float')
@@ -61,7 +65,7 @@ def jfs(xtrain, ytrain, opts):
     # Initial fitness evaluation
     for i in range(N):
         Xbin = np.where(X[i, :] > thres, 1, 0)
-        fitness[i, 0] = Fun(xtrain, ytrain, Xbin, opts)
+        fitness[i, 0] = Fun(xtrain, ytrain, Xbin, opts,np.clip(X[i,:],lb,ub))
         if fitness[i, 0] < Score:
             Position[0, :] = X[i, :]
             Score = fitness[i, 0]
@@ -98,7 +102,7 @@ def jfs(xtrain, ytrain, opts):
 
         for i in range(N):
             Xbin = np.where(Xnew[i, :] > thres, 1, 0)
-            newPopfit = Fun(xtrain, ytrain, Xbin, opts)
+            newPopfit = Fun(xtrain, ytrain, Xbin, opts,np.clip(Xnew[i,:],lb,ub))
             if newPopfit < fitness[i, 0]:
                 X[i, :] = Xnew[i, :]
                 fitness[i, 0] = newPopfit

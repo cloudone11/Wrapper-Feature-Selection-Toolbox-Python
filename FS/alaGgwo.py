@@ -51,7 +51,7 @@ def jfs(xtrain, ytrain, opts):
     N = opts['N']
     Max_iter = opts['T']
     dim = np.size(xtrain, 1)
-
+    
     # Initialize position
     X = initialization(N, dim, ub, lb)
     Xnew = np.zeros((N, dim), dtype='float')
@@ -152,6 +152,16 @@ def jfs(xtrain, ytrain, opts):
             if newPopfit < fitness[i, 0]:
                 X[i, :] = gwoX[i, :]
                 fitness[i, 0] = newPopfit
+            if fitness[i, 0] < Falpha:
+                Xalpha[0, :] = X[i, :]
+                Falpha = fitness[i, 0]
+            if fitness[i,0] < Fbeta and fitness[i,0] > Falpha:
+                Xbeta[0,:]  = X[i,:]
+                Fbeta       = fitness[i,0]
+                
+            if fitness[i,0] < Fdelta and fitness[i,0] > Fbeta and fitness[i,0] > Falpha:
+                Xdelta[0,:] = X[i,:]
+                Fdelta      = fitness[i,0]
                 
         # Record convergence
         Convergence_curve[0, Iter - 1] = Falpha

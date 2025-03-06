@@ -1,7 +1,7 @@
 import numpy as np
 import faiss
 # from sklearn.neighbors import KNeighborsClassifier
-
+from cec2017 import functions
 class KNeighborsClassifier:
     def __init__(self, n_neighbors=5):
         self.n_neighbors = n_neighbors
@@ -69,14 +69,23 @@ def error_rate(xtrain, ytrain, x, opts):
         return 1.0  # 异常时返回最大错误率
 
 # Fun 函数微调
-def Fun(xtrain, ytrain, x, opts):
-    alpha = 0.70
-    beta = 1 - alpha
-    max_feat = len(x)
-    num_feat = np.sum(x == 1)
-    
-    if num_feat == 0:
-        return 1.0  # 直接返回最大成本
+def Fun(xtrain, ytrain, x, opts,xboundaryed=None):
+    if 'runcec' in opts and opts['runcec'] ==True:
+        selectedFunIndex = opts['selectedFunIndex']
+        return functions.all_functions[0]([xboundaryed])[0]
+        # test all the funs
     else:
-        error = error_rate(xtrain, ytrain, x, opts)
-        return alpha * error + beta * (num_feat / max_feat)
+        if opts['w']:
+            w    = opts['w']
+        else:
+            w    = 0.7    
+        alpha = w
+        beta = 1 - alpha
+        max_feat = len(x)
+        num_feat = np.sum(x == 1)
+        
+        if num_feat == 0:
+            return 1.0  # 直接返回最大成本
+        else:
+            error = error_rate(xtrain, ytrain, x, opts)
+            return alpha * error + beta * (num_feat / max_feat)

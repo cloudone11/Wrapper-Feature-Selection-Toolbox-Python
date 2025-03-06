@@ -4,7 +4,7 @@ from sklearn.feature_selection import mutual_info_classif, chi2, SelectKBest
 from sklearn.preprocessing import LabelEncoder
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
-from FS.ala import jfs   # change this to switch algorithm 
+from FS.gwo15 import jfs   # change this to switch algorithm 
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, precision_score, f1_score
 from utils.mClassifier import knn_classifier_for_static_data, np_knn_classifier_for_static_data
@@ -57,8 +57,8 @@ k    = 5     # k-value in KNN
 N    = 30    # number of particles
 T    = 100   # maximum number of iterations
 dim  = np.size(xtrain,1) # the dim
-alpha= 0.90
-opts = {'k':k, 'fold':fold, 'N':N, 'T':T, 'alpha':alpha,'fold':fold}
+w    = 0.70
+opts = {'k':k, 'fold':fold, 'N':N, 'T':T, 'w':w,'fold':fold}
 start_time = time.time()
 
 # initial static classifier
