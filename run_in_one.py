@@ -23,7 +23,7 @@ import traceback
 # algorithmsall = algorithms1 + algorithms2 + algorithms3+ algorithms4+algorithms5
 # for alg in algorithmsall:
 #     algorithms.add(alg)
-algorithms = ['ala']
+algorithms = ['gwo3s','gwo3h','gwo3l','gwo']
 print(algorithms)
 # Function to run the algorithm and collect metrics
 def run_algorithm(algo, train_index, test_index, feat, label,opts):
@@ -182,14 +182,14 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0 , w 
         for algo in algorithms:
             print(f"Running experiment with algorithm: {algo}")
             fold_results = []
-            for j in tqdm(range(1), desc=f"Algorithm: {algo}", unit="run"):
+            for j in tqdm(range(30), desc=f"Algorithm: {algo}", unit="run"):
                 # set the static knn classifier
                 knnClassifierList = []
                 for fold, (train_index, test_index) in enumerate(kf.split(feat)):
                     pass
                 for fold, (train_index, test_index) in enumerate(kf.split(feat)):
-                    if fold != 0:
-                        continue
+                    # if fold != 0:
+                    #     continue
                     # try - catch block to handle exceptions
                     try:
                         stime   = time.time()
@@ -246,7 +246,7 @@ if __name__ == '__main__':
     
     # worker(0, 'none', 0.2,0.4)
     # worker(0,'none',0.2,0.3)
-    worker(0,'none',0.2,0.5,True)
+    worker(0,'none',0.2,0.4)
     # worker(1, 'none', 0.2)
     # worker(2, 'none', 0.2)
     
