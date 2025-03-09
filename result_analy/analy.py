@@ -140,9 +140,9 @@ def analyze_high_accuracy_feature_selection(input_file_path, output_folder_path)
         f.write(f"Maximum Number of Features: {max_feature_count}\n")
 
 if __name__ == '__main__':
-    analyze_results_by_algo(r'result_analy\gwo3n30t50r30w0.4\0_30_50_none_0.2_0.4.json', r'result_analy\gwo3n30t50r30w0.4')
-    # analyze_results_by_algo(r'result_analy\gwo3n30t50r30w0.4\0_30_50_none_0.2_0.5.json', r'result_analy\gwo3n30t50r30w0.4')
-    # analyze_results_by_algo(r'result_analy\gwo3n30t50r30w0.4\0_30_50_none_0.2_0.6.json', r'result_analy\gwo3n30t50r30w0.4')
+    analyze_results_by_algo(r'result_analy\alln30t50r30wnew\0_30_50_none_0.2_0.4.json', r'result_analy\alln30t50r30wnew')
+    analyze_results_by_algo(r'result_analy\alln30t50r30wnew\1_30_50_none_0.2_0.4.json', r'result_analy\alln30t50r30wnew')
+    analyze_results_by_algo(r'result_analy\alln30t50r30wnew\2_30_50_none_0.2_0.4.json', r'result_analy\alln30t50r30wnew')
     # 总结：sobol初始种群的实验结果较优，但无明显差距。
     # analyze_high_accuracy_feature_selection(r'result_analy\n30mi0.2t300gwo1-17\experiment_results_0_mi_0.2.json', r'result_analy\n30mi0.2t300gwo1-17')
     # analyze_high_accuracy_feature_selection(r'result_analy\n30mi0.2t300gwo1-17\experiment_results_1_mi_0.2.json', r'result_analy\n30mi0.2t300gwo1-17')
