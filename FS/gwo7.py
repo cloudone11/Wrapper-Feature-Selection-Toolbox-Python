@@ -117,7 +117,9 @@ def jfs(xtrain, ytrain, opts):
             # Greedy selection  
             rnew = rand()  
             p = rand()  
-            if Fun(xtrain, ytrain, Pbin[i,:], opts,np.clip(Positions[i,:],lb,ub)) > Fun(xtrain, ytrain, binary_conversion(new_Position[i, :].reshape(1,-1),thres,1,dim), opts,np.clip(new_Position[i,:],lb,ub)) and rnew < p:  
+            f1 = Fun(xtrain, ytrain, Pbin[i,:], opts,np.clip(Positions[i,:],lb,ub))
+            f2 = Fun(xtrain, ytrain, binary_conversion(new_Position[i, :].reshape(1,-1),thres,1,dim).flatten(), opts,np.clip(new_Position[i,:],lb,ub))
+            if f1 > f2 and rnew < p:  
                 Positions[i, :] = new_Position[i, :]  # Keep the old position  
   
         Convergence_curve[0, l] = Alpha_score  

@@ -13,18 +13,7 @@ import time
 import matplotlib.pyplot as plt
 import traceback
 
-# # Define algorithms to run
-algorithms1 = []
-# algorithms2 = ['gwo','gwos','gwo8s','gwo8h','gwo8l','gwo12s','gwo12h','gwo12l']
-# algorithms3  = ["woa", "ja", "pso", "sca", "ssa", "gwo", "bka",'ba','bka','cs','de','fa','fpa','ga']
-algorithms4 = ['gwo1','gwo3','gwo4','gwo6','gwo7','gwo8','gwo9','gwo10','gwo11','gwo12','gwo13','gwo14','gwo16','gwo17','gwosca','sogwo']
-# algorithms5 = ['ala']
-algorithms = set()
-algorithmsall = algorithms1+algorithms4
-for alg in algorithmsall:
-    algorithms.add(alg)
-# algorithms = ['ala']
-print(algorithms)
+
 # Function to run the algorithm and collect metrics
 def run_algorithm(algo, train_index, test_index, feat, label,opts):
     # Dynamically import the module
@@ -98,8 +87,8 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0 , w 
         opts       = {}
         opts['lb'] = -100
         opts['ub'] = 100
-        opts['N']  = 30
-        opts['T']  = 1000
+        opts['N']  = 100
+        opts['T']  = 10000
         opts['dim']= 100
         opts['runcec'] = True
         opts['selectedFunIndex'] = 0
@@ -109,11 +98,13 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0 , w 
         feat = np.zeros((2,opts['dim']),dtype='float')
         label= np.zeros((2,1),dtype='float')
         results = []
-        for algo in algorithms:
-            for j in tqdm(range(1), desc=f"Algorithm: {algo}", unit="run"):
-                result = run_algorithm(algo, train_index_placeH, test_index_placeH, feat, label,opts)
-                results.append(result)
-        with open(f"{opts['selectedFunIndex']}_{opts['N']}_{opts['T']}_{opts['dim']}.json", "w") as json_file:
+        for i in range(30):
+            opts['selectedFunIndex'] = i
+            for algo in algorithms:
+                for j in tqdm(range(totalRun), desc=f"Algorithm: {algo}", unit="run"):
+                    result = run_algorithm(algo, train_index_placeH, test_index_placeH, feat, label,opts)
+                    results.append(result)
+        with open(f"allfuns_{opts['N']}_{opts['T']}_{opts['dim']}.json", "w") as json_file:
             json.dump(results, json_file, indent=4)
     else:
         print(f"worker {i} started")
@@ -232,6 +223,18 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0 , w 
 if __name__ == '__main__':
     # 设置随机种子
     np.random.seed(42)
+    # # Define algorithms to run
+    algorithms1 = []
+    algorithms2 = []
+    algorithms3  = ["woa", "ja", "pso", "sca", "ssa", "gwo", "bka",'ba','bka','cs','de','fa','fpa','ga']
+    algorithms4 = ['gwo1','gwo3','gwo4','gwo6','gwo7','gwo8','gwo9','gwo10','gwo11','gwo12','gwo13','gwo14','gwo16','gwo17','gwosca','sogwo']
+    algorithms5 = ['ala']
+    algorithms = set()
+    algorithmsall = algorithms2+algorithms3+algorithms4+algorithms5
+    for alg in algorithmsall:
+        algorithms.add(alg)
+    # algorithms = ['gwo7']
+    print(algorithms)
     # with Pool(processes=3) as pool:
     #     pool.map(worker, [0])
     # for i in range(3):
@@ -258,7 +261,8 @@ if __name__ == '__main__':
     
     # worker(0, 'none', 0.2,0.4)
     # worker(0,'none',0.2,0.3)
-    worker(3,'none',0.2,0.4,True)
+    worker(3,'none',0.2,0.4,1)
+    worker(3,'none',0.2,0.4,0)
     # worker(1, 'none', 0.2)
     # worker(2, 'none', 0.2)
     

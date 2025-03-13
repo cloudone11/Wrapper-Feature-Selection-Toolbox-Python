@@ -174,7 +174,7 @@ def jfs(xtrain, ytrain, opts):
     while t < max_iter:
         Xbin = binary_conversion(X, thres, N, dim)
         for i in range(N):
-            Fun(xtrain, ytrain, Xbin, opts,np.clip(X[i,:],lb,ub))
+            Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(X[i,:],lb,ub))
             if fit[i, 0] < fitR:
                 Xrb[0, :] = X[i, :]
                 fitR = fit[i, 0]

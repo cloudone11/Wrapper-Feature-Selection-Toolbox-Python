@@ -81,7 +81,7 @@ def jfs(xtrain, ytrain, opts):
     fitG  = float('inf')
     
     for i in range(N):
-        fit[i,0] = Fun(xtrain, ytrain, Xbin, opts,np.clip(X[i,:],lb,ub))
+        fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(X[i,:],lb,ub))
         if fit[i,0] < fitG:
             Xgb[0,:] = X[i,:]
             fitG     = fit[i,0]
@@ -131,7 +131,7 @@ def jfs(xtrain, ytrain, opts):
         
         # Greedy selection
         for i in range(N):
-            Fnew = Fun(xtrain, ytrain, Xbin, opts,np.clip(Xnew[i,:],lb,ub))
+            Fnew = Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(Xnew[i,:],lb,ub))
             if (rand() < A[i])  and  (Fnew <= fit[i,0]):
                 X[i,:]   = Xnew[i,:]
                 fit[i,0] = Fnew
