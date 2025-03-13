@@ -42,17 +42,18 @@ def Levy(dim):
 
 def jfs(xtrain, ytrain, opts):
     # Parameters
-    ub = 1
-    lb = 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
     thres = 0.5
 
     N = opts['N']
     Max_iter = opts['T']
-    dim = np.size(xtrain, 1)
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)
 
     if 'runcec' in opts and opts['runcec'] ==True:
         ub = opts['ub']
         lb = opts['lb']
+        dim = 100
         
     # Initialize position
     X = initialization(N, dim, ub, lb)

@@ -72,6 +72,7 @@ def error_rate(xtrain, ytrain, x, opts):
 def Fun(xtrain, ytrain, x, opts,xboundaryed=None):
     if 'runcec' in opts and opts['runcec'] ==True:
         selectedFunIndex = opts['selectedFunIndex']
+        xboundaryed= xboundaryed.flatten()
         return functions.all_functions[0]([xboundaryed])[0]
         # test all the funs
     else:

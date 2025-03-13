@@ -37,15 +37,15 @@ def boundary(x, lb, ub):
 
 def jfs(xtrain, ytrain, opts):
     # Parameters
-    ub    = 1
-    lb    = 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
     thres = 0.5
     
     N        = opts['N']
     max_iter = opts['T']
     
     # Dimension
-    dim = np.size(xtrain, 1)
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)
     if np.size(lb) == 1:
         ub = ub * np.ones([1, dim], dtype='float')
         lb = lb * np.ones([1, dim], dtype='float')

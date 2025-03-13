@@ -43,13 +43,13 @@ def cauchy_mutation_alpha(Xalpha,a,lb,ub):
     return Xalpha
 
 def jfs(xtrain, ytrain, opts):
-    ub = 1
-    lb = 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
     thres = 0.5
     N = opts['N']
     max_iter = opts['T']
     k = 2  # Nonlinear adjustment coefficient
-    dim = np.size(xtrain, 1)
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)
     if np.size(lb) == 1:
         ub = ub * np.ones([1, dim], dtype='float')
         lb = lb * np.ones([1, dim], dtype='float')
@@ -70,7 +70,7 @@ def jfs(xtrain, ytrain, opts):
     Fdelta = float('inf')
     
     for i in range(N):
-        fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)
+        fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(X[i,:],lb,ub))
         if fit[i,0] < Falpha:
             Xalpha[0,:] = X[i,:]
             Falpha = fit[i,0]
@@ -116,7 +116,7 @@ def jfs(xtrain, ytrain, opts):
         id4alpha = 0
         # Fitness evaluation
         for i in range(N):
-            fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)
+            fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(X[i,:],lb,ub))
             if fit[i,0] < Falpha:
                 Xalpha[0,:] = X[i,:]
                 Falpha = fit[i,0]
@@ -133,7 +133,7 @@ def jfs(xtrain, ytrain, opts):
         Xalpha2bin = binary_conversion(Xalpha2, thres, 1, dim)
         Xalpha2bin = Xalpha2bin.flatten()
         # print(Xalpha2bin)
-        Xalpha2Fit = Fun(xtrain, ytrain, Xalpha2bin, opts)
+        Xalpha2Fit = Fun(xtrain, ytrain, Xalpha2bin, opts,np.clip(Xalpha2,lb,ub))
         if Xalpha2Fit < Falpha:
             Xalpha = Xalpha2.copy()
             Falpha = Xalpha2Fit.copy()

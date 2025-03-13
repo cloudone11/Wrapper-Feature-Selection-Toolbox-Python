@@ -61,12 +61,12 @@ def corOppose(Positions, fitness, ub, lb, upper, lower, threshold):
     return Positions
 def jfs(xtrain, ytrain, opts):
     # Parameters
-    ub = 1
-    lb = 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
     thres = 0.5
     N = opts['N']
     max_iter = opts['T']
-    dim = np.size(xtrain, 1)
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)
     
     if np.size(lb) == 1:
         ub = ub * np.ones([1, dim], dtype='float')
@@ -93,7 +93,7 @@ def jfs(xtrain, ytrain, opts):
     Xbin = binary_conversion(X, thres, N, dim)
     fit = np.zeros([N, 1], dtype='float')
     for i in range(N):
-        fit[i, 0] = Fun(xtrain, ytrain, Xbin[i, :], opts)
+        fit[i, 0] = Fun(xtrain, ytrain, Xbin[i, :], opts,np.clip(X[i,:],lb,ub))
         if fit[i, 0] < Falpha:
             Falpha, Xalpha = fit[i, 0], X[i, :].reshape(1,-1)
         if fit[i, 0] > Falpha and fit[i, 0] < Fbeta:
@@ -158,7 +158,7 @@ def jfs(xtrain, ytrain, opts):
         
         # Update fitness values
         for i in range(N):
-            curr_fit = Fun(xtrain, ytrain, Xbin[i, :], opts)
+            curr_fit = Fun(xtrain, ytrain, Xbin[i, :], opts,np.clip(X[i,:],lb,ub))
             fit[i, 0] = curr_fit
             # Update alpha, beta, delta
             if curr_fit < Falpha:

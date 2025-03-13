@@ -53,8 +53,8 @@ def levy_distribution(beta, dim):
 
 def jfs(xtrain, ytrain, opts):
     # Parameters
-    ub    = 1
-    lb    = 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
     thres = 0.5
     beta  = 1.5    # levy component
     
@@ -64,7 +64,7 @@ def jfs(xtrain, ytrain, opts):
         beta = opts['beta']
         
     # Dimension
-    dim = np.size(xtrain, 1)
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)
     if np.size(lb) == 1:
         ub = ub * np.ones([1, dim], dtype='float')
         lb = lb * np.ones([1, dim], dtype='float')
@@ -86,7 +86,7 @@ def jfs(xtrain, ytrain, opts):
         
         # Fitness
         for i in range(N):
-            fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)
+            fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(X[i,:],lb,ub))
             if fit[i,0] < fitR:
                 Xrb[0,:] = X[i,:]
                 fitR     = fit[i,0]
@@ -178,8 +178,8 @@ def jfs(xtrain, ytrain, opts):
                     Ybin = binary_conversion(Y, thres, 1, dim)
                     Zbin = binary_conversion(Z, thres, 1, dim)
                     # fitness
-                    fitY = Fun(xtrain, ytrain, Ybin[0,:], opts)
-                    fitZ = Fun(xtrain, ytrain, Zbin[0,:], opts)
+                    fitY = Fun(xtrain, ytrain, Ybin[0,:], opts,np.clip(Y[i,:],lb,ub))
+                    fitZ = Fun(xtrain, ytrain, Zbin[0,:], opts,np.clip(Z[i,:],lb,ub))
                     # Greedy selection (10)
                     if fitY < fit[i,0]:
                         fit[i,0]  = fitY 
@@ -211,8 +211,8 @@ def jfs(xtrain, ytrain, opts):
                     Ybin = binary_conversion(Y, thres, 1, dim)
                     Zbin = binary_conversion(Z, thres, 1, dim)
                     # fitness
-                    fitY = Fun(xtrain, ytrain, Ybin[0,:], opts)
-                    fitZ = Fun(xtrain, ytrain, Zbin[0,:], opts)
+                    fitY = Fun(xtrain, ytrain, Ybin[0,:], opts,np.clip(Y[i,:],lb,ub))
+                    fitZ = Fun(xtrain, ytrain, Zbin[0,:], opts,np.clip(Z[i,:],lb,ub))
                     # Greedy selection (10)
                     if fitY < fit[i,0]:
                         fit[i,0]  = fitY

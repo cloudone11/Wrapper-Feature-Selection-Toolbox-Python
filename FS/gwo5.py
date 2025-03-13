@@ -61,8 +61,8 @@ def select_leaders(pareto_front, fitness, num_leaders):
 
 def jfs_mo(xtrain, ytrain, opts):
     # Parameters
-    ub = 1
-    lb = 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
     thres = 0.5
 
     N = opts['N']

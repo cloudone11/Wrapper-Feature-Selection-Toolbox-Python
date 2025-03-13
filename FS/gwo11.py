@@ -33,15 +33,15 @@ def boundary(x, lb, ub):
 
 def jfs(xtrain, ytrain, opts):
     # Parameters
-    ub = 1
-    lb = 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
     thres = 0.5
     
     N = opts['N']
     max_iter = opts['T']
     
     # Dimension
-    dim = np.size(xtrain, 1)
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)
     if np.size(lb) == 1:
         ub = ub * np.ones([1, dim], dtype='float')
         lb = lb * np.ones([1, dim], dtype='float')
@@ -63,7 +63,7 @@ def jfs(xtrain, ytrain, opts):
     Fdelta = float('inf')
     
     for i in range(N):
-        fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)
+        fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(X[i,:],lb,ub))
         if fit[i,0] < Falpha:
             Xalpha[0,:] = X[i,:]
             Falpha = fit[i,0]
@@ -145,7 +145,7 @@ def jfs(xtrain, ytrain, opts):
             X_prime =   X_prime.reshape(1, -1)
             
             X_prime = binary_conversion(X_prime, thres, 1, dim)
-            fit_prime = Fun(xtrain, ytrain, X_prime[0,:], opts)
+            fit_prime = Fun(xtrain, ytrain, X_prime[0,:], opts,np.clip(X_prime,lb,ub))
             if fit_prime < fit[i,0]:
                 X[i,:] = X_prime
                 fit[i,0] = fit_prime
@@ -161,7 +161,7 @@ def jfs(xtrain, ytrain, opts):
         
         # Fitness
         for i in range(N):
-            fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)
+            fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(X[i,:],lb,ub))
             if fit[i,0] < Falpha:
                 Xalpha[0,:] = X[i,:]
                 Falpha = fit[i,0]

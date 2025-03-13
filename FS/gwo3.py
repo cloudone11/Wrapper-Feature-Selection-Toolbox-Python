@@ -30,15 +30,15 @@ def boundary(x, lb, ub):
 
 def jfs(xtrain, ytrain, opts):
     # Parameters
-    ub    = 1
-    lb    = 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
     thres = 0.5
     
     N        = opts['N']
     max_iter = opts['T']
     
     # Dimension
-    dim = np.size(xtrain, 1)
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)
     if np.size(lb) == 1:
         ub = ub * np.ones((1, dim), dtype='float')
         lb = lb * np.ones((1, dim), dtype='float')
@@ -57,7 +57,7 @@ def jfs(xtrain, ytrain, opts):
     Fdelta = float('inf')
     
     for i in range(N):
-        fit[i, 0] = Fun(xtrain, ytrain, Xbin[i, :], opts)
+        fit[i, 0] = Fun(xtrain, ytrain, Xbin[i, :], opts,np.clip(X[i,:],lb,ub))
         if fit[i, 0] < Falpha:
             Xalpha[0, :] = X[i, :]
             Falpha = fit[i, 0]
@@ -124,9 +124,9 @@ def jfs(xtrain, ytrain, opts):
             
             # Evaluate candidates
             Xbin_gwo = binary_conversion(temp_X_gwo.reshape(1, -1), thres, 1, dim)
-            fit_gwo = Fun(xtrain, ytrain, Xbin_gwo[0], opts)
+            fit_gwo = Fun(xtrain, ytrain, Xbin_gwo[0], opts,np.clip(temp_X_gwo,lb,ub))
             Xbin_dlh = binary_conversion(temp_X_dlh.reshape(1, -1), thres, 1, dim)
-            fit_dlh = Fun(xtrain, ytrain, Xbin_dlh[0], opts)
+            fit_dlh = Fun(xtrain, ytrain, Xbin_dlh[0], opts,np.clip(temp_X_dlh,lb,ub))
             
             # Select better candidate and compare with current
             if fit_gwo < fit_dlh:

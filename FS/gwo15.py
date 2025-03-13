@@ -32,12 +32,12 @@ def boundary(x, lb, ub):
 
 def jfs(xtrain, ytrain, opts):
     # Parameters
-    ub = 1
-    lb = 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
     thres = 0.5
     N = opts['N']
     max_iter = opts['T']
-    dim = np.size(xtrain, 1)
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)
     if np.size(lb) == 1:
         ub = ub * np.ones([1, dim], dtype='float')
         lb = lb * np.ones([1, dim], dtype='float')
@@ -53,7 +53,7 @@ def jfs(xtrain, ytrain, opts):
     # Fitness evaluation
     fit = np.zeros([N, 1], dtype='float')
     for i in range(N):
-        fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)
+        fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(X[i,:],lb,ub))
         memory_fitness[i,0] = fit[i,0]
     
     # Initialize alpha, beta, and delta
@@ -116,7 +116,7 @@ def jfs(xtrain, ytrain, opts):
         
         # Fitness evaluation
         for i in range(N):
-            fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)
+            fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(X[i,:],lb,ub))
         
         # Update alpha, beta, and delta
         for i in range(N):
@@ -150,7 +150,7 @@ def jfs(xtrain, ytrain, opts):
                     U[0,d] = X[i,d]
                 U[0,d] = boundary(U[0,d], lb[0,d], ub[0,d])
             Ubin = binary_conversion(U, thres, 1, dim)
-            fit_U = Fun(xtrain, ytrain, Ubin[0,:], opts)
+            fit_U = Fun(xtrain, ytrain, Ubin[0,:], opts,np.clip(U,lb,ub))
             if fit_U < fit[i,0]:
                 X[i,:] = U[0,:]
                 fit[i,0] = fit_U
@@ -187,7 +187,7 @@ def jfs(xtrain, ytrain, opts):
             for d in range(dim):                               
                 temp_wolves[0,d] = boundary(temp_wolves[0,d], lb[0,d], ub[0,d])
             temp_wolves_bin = binary_conversion(temp_wolves, thres, 1, dim)
-            fit_local = Fun(xtrain, ytrain, temp_wolves_bin[0,:], opts)
+            fit_local = Fun(xtrain, ytrain, temp_wolves_bin[0,:], opts,np.clip(temp_wolves[i,:],lb,ub))
             if fit_local < memory_fitness[idx,0]:
                 memory_swarm[idx,:] = temp_wolves
                 memory_fitness[idx,0] = fit_local

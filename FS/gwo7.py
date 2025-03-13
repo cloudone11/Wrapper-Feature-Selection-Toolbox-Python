@@ -32,22 +32,22 @@ def boundary(x, lb, ub):
   
 def jfs(xtrain, ytrain, opts):  
     # Parameters  
-    ub = 1  
-    lb = 0  
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1  
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0  
     thres = 0.5  
   
     N = opts['N']  
     max_iter = opts['T']  
   
     # Dimension  
-    dim = np.size(xtrain, 1)  
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)  
     if np.size(lb) == 1:  
         ub = ub * np.ones([1, dim], dtype='float')  
         lb = lb * np.ones([1, dim], dtype='float')  
   
     # Initialize positions  
     Positions = init_position(lb, ub, N, dim)  
-    
+    old_Positions = Positions.copy()
     # Initialize alpha, beta, and delta  
     Alpha_pos = np.zeros([1, dim], dtype='float')  
     Alpha_score = float('inf')  
@@ -58,7 +58,7 @@ def jfs(xtrain, ytrain, opts):
     # Pre  
     Convergence_curve = np.zeros([1, max_iter], dtype='float')  
     l = 0  
-  
+    
     # Main loop  
     while l < max_iter:  
         for i in range(N):  
@@ -69,7 +69,7 @@ def jfs(xtrain, ytrain, opts):
         Pbin = binary_conversion(Positions, thres, N, dim)        
         for i in range(N):            
             # Calculate fitness  
-            fitness = Fun(xtrain, ytrain, Pbin[i], opts)  
+            fitness = Fun(xtrain, ytrain, Pbin[i], opts,np.clip(Positions[i,:],lb,ub))  
             # Update alpha, beta, and delta  
             if fitness < Alpha_score:  
                 Alpha_score = fitness  
@@ -81,7 +81,7 @@ def jfs(xtrain, ytrain, opts):
                 Delta_score = fitness  
                 Delta_pos = Positions[i, :]  
         a = 2 - l * (2 / max_iter)  # Linearly decreasing coefficient  
-  
+        new_Position = np.zeros_like(Positions)
         for i in range(N):
               
             for j in range(dim): 
@@ -108,17 +108,17 @@ def jfs(xtrain, ytrain, opts):
                 alpha_levi = 0.01 * u / (abs(v) ** beta)  
                 A = 2 * a * rand() - a
                 if abs(A) > 1:  
-                    Positions[i, j] = 0.5 * (X1 + X2) + alpha_levi * (Positions[i, j] - Alpha_pos[ j])  
+                    new_Position[i, j] = 0.5 * (X1 + X2) + alpha_levi * (Positions[i, j] - Alpha_pos[ j])  
                 else:  
-                    Positions[i, j] = 0.5 * (X1 + X2)
+                    new_Position[i, j] = 0.5 * (X1 + X2)
                 # Boundary handling  
-                Positions[i, j] = boundary(Positions[i, j], lb[0, j], ub[0, j])  
-  
+                new_Position[i, j] = boundary(new_Position[i, j], lb[0, j], ub[0, j])  
+            # binary_conversion(old_Positions[i, :],thres,1,dim)
             # Greedy selection  
             rnew = rand()  
             p = rand()  
-            if Fun(xtrain, ytrain, Positions[i, :], opts) > Fun(xtrain, ytrain, Positions[i, :], opts) and rnew < p:  
-                Positions[i, :] = Positions[i, :]  # Keep the old position  
+            if Fun(xtrain, ytrain, Pbin[i,:], opts,np.clip(Positions[i,:],lb,ub)) > Fun(xtrain, ytrain, binary_conversion(new_Position[i, :].reshape(1,-1),thres,1,dim), opts,np.clip(new_Position[i,:],lb,ub)) and rnew < p:  
+                Positions[i, :] = new_Position[i, :]  # Keep the old position  
   
         Convergence_curve[0, l] = Alpha_score  
         l += 1  

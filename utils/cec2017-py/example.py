@@ -6,7 +6,7 @@ import numpy as np
 import cec2017.functions as functions
 
 f = functions.f1
-dimension = 30
+dimension = 100
 for i in range(0, 10):
     x = np.random.uniform(low=-100, high=100, size=dimension)
     print(x.shape)

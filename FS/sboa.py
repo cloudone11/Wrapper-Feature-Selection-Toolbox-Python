@@ -37,13 +37,13 @@ def Levin(dim):
 
 def jfs(xtrain, ytrain, opts):
     # 参数
-    ub = 1
-    lb = 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
     thres = 0.5
     
     N = opts['N']  # 种群大小
     Max_iter = opts['T']  # 最大迭代次数
-    dim = np.size(xtrain, 1)  # 输入特征维度
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)  # 输入特征维度
     
     # 如果输入的边界是标量，将其扩展为向量
     if np.size(lb) == 1:

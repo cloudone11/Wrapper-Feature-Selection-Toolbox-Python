@@ -44,12 +44,12 @@ def boundary(x, lb, ub):
 
 def jfs(xtrain, ytrain, opts):
     # Parameters
-    ub = 1
-    lb = 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
     thres = 0.5
     N = opts['N']
     max_iter = opts['T']
-    dim = np.size(xtrain, 1)
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)
     if np.size(lb) == 1:
         ub = ub * np.ones([1, dim], dtype='float')
         lb = lb * np.ones([1, dim], dtype='float')
@@ -70,7 +70,7 @@ def jfs(xtrain, ytrain, opts):
     Fdelta = float('inf')
     
     for i in range(N):
-        fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)
+        fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(X[i,:],lb,ub))
         if fit[i,0] < Falpha:
             Xalpha[0,:] = X[i,:]
             Falpha = fit[i,0]
@@ -124,7 +124,7 @@ def jfs(xtrain, ytrain, opts):
         
         # Fitness
         for i in range(N):
-            fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)
+            fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(X[i,:],lb,ub))
             if fit[i,0] < Falpha:
                 Xalpha[0,:] = X[i,:]
                 Falpha = fit[i,0]
@@ -149,7 +149,7 @@ def jfs(xtrain, ytrain, opts):
                     U[0,d] = X[i,d]
                 U[0,d] = boundary(U[0,d], lb[0,d], ub[0,d])
             Ubin = binary_conversion(U, thres, 1, dim)
-            fit_U = Fun(xtrain, ytrain, Ubin[0,:], opts)
+            fit_U = Fun(xtrain, ytrain, Ubin[0,:], opts,np.clip(U,lb,ub))
             if fit_U < fit[i,0]:
                 X[i,:] = U[0,:]
                 fit[i,0] = fit_U
@@ -165,7 +165,7 @@ def jfs(xtrain, ytrain, opts):
         new_X = np.random.uniform(lb, ub, (m, dim))
         new_fit = np.zeros((m, 1))
         for i in range(m):
-            new_fit[i, 0] = Fun(xtrain, ytrain, new_X[i, :], opts)
+            new_fit[i, 0] = Fun(xtrain, ytrain, new_X[i, :], opts,np.clip(new_X[i,:],lb,ub))
 
         # 将新个体加入种群
         X = np.vstack((X, new_X))

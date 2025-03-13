@@ -30,12 +30,12 @@ def boundary(x, lb, ub):
     return x  
   
 def jfs(xtrain, ytrain, opts):  
-    ub = 1  
-    lb = 0  
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1  
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0  
     thres = 0.5  
     N = opts['N']  
     max_iter = opts['T']  
-    dim = np.size(xtrain, 1)  
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)  
     if np.size(lb) == 1:  
         ub = ub * np.ones([1, dim], dtype='float')  
         lb = lb * np.ones([1, dim], dtype='float')  
@@ -49,7 +49,7 @@ def jfs(xtrain, ytrain, opts):
     Fbeta = float('inf')  
     Fdelta = float('inf')  
     for i in range(N):  
-        fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)  
+        fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(X[i,:],lb,ub))  
         if fit[i,0] < Falpha:  
             Xalpha[0,:] = X[i,:]  
             Falpha = fit[i,0]  
@@ -84,7 +84,7 @@ def jfs(xtrain, ytrain, opts):
                 X[i,d] = boundary(X[i,d], lb[0,d], ub[0,d])  
         Xbin = binary_conversion(X, thres, N, dim)  
         for i in range(N):  
-            fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)  
+            fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(X[i,:],lb,ub))  
             if fit[i,0] < Falpha:  
                 Xalpha[0,:] = X[i,:]  
                 Falpha = fit[i,0]  
@@ -100,7 +100,7 @@ def jfs(xtrain, ytrain, opts):
         for i in range(N):  
             if rand() < P:  
                 M = lb + rand() * (ub - lb)  
-                M_fit = Fun(xtrain, ytrain, binary_conversion(M, thres, 1, dim)[0,:], opts)  
+                M_fit = Fun(xtrain, ytrain, binary_conversion(M, thres, 1, dim)[0,:], opts,np.clip(M,lb,ub))  
                 if M_fit < fit[i,0]:  
                     X[i,:] = M  
                     fit[i,0] = M_fit  

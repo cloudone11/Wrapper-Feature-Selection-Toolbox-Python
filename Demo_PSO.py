@@ -12,7 +12,7 @@ import pandas as pd
 import numpy as np
 import time
 # Load data
-data = pd.read_csv(r'./data/merged_df12.csv')
+data = pd.read_csv(r'./data/merged_df123.csv')
 
 # 删除包含缺失值的行
 data = data.dropna()
@@ -62,7 +62,7 @@ opts = {'k':k, 'fold':fold, 'N':N, 'T':T, 'w':w,'fold':fold}
 start_time = time.time()
 
 # initial static classifier
-staticClassifier = np_knn_classifier_for_static_data(xtrain,ytrain,xtest,ytest,k)
+# staticClassifier = np_knn_classifier_for_static_data(xtrain,ytrain,xtest,ytest,k)
 # perform feature selection
 fmdl = jfs(feat, label, opts)
 sf   = fmdl['sf']
@@ -84,18 +84,40 @@ Acc       = np.sum(y_valid == y_pred)  / num_valid
 print("Accuracy:", 100 * Acc)
 
 # confusion matrix
-tn, fp, fn, tp = confusion_matrix(y_valid, y_pred).ravel()
-# convert label of y_valid and y_pred to 'b' or 'g'
-selected_features = fmdl['sf']
-sensitivity = recall_score(y_valid, y_pred, pos_label=0)
-precision = precision_score(y_valid, y_pred, pos_label=0)
-specificity = tn / (tn + fp)
-mcc = (tp * tn - fp * fn) / np.sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))
-print("selected features:", selected_features)
-print("Sensitivity:", sensitivity)
-print("Precision:", precision)
-print("Specificity:", specificity)
-print("MCC:", mcc)
+cm = confusion_matrix(y_valid, y_pred)
+print("Confusion Matrix:")
+print(cm)
+
+# calculate metrics for each class
+num_classes = len(np.unique(y_valid))
+metrics = {
+    'precision': precision_score(y_valid, y_pred, average=None),
+    'recall': recall_score(y_valid, y_pred, average=None),
+    'f1': f1_score(y_valid, y_pred, average=None)
+}
+
+# calculate overall metrics
+overall_metrics = {
+    'accuracy': accuracy_score(y_valid, y_pred),
+    'macro_precision': precision_score(y_valid, y_pred, average='macro'),
+    'macro_recall': recall_score(y_valid, y_pred, average='macro'),
+    'macro_f1': f1_score(y_valid, y_pred, average='macro')
+}
+
+# print per-class metrics
+print("\nPer-class metrics:")
+for i in range(num_classes):
+    print(f"Class {i}:")
+    print(f"  Precision: {metrics['precision'][i]:.4f}")
+    print(f"  Recall: {metrics['recall'][i]:.4f}")
+    print(f"  F1-score: {metrics['f1'][i]:.4f}")
+
+# print overall metrics
+print("\nOverall metrics:")
+print(f"Accuracy: {overall_metrics['accuracy']:.4f}")
+print(f"Macro Precision: {overall_metrics['macro_precision']:.4f}")
+print(f"Macro Recall: {overall_metrics['macro_recall']:.4f}")
+print(f"Macro F1-score: {overall_metrics['macro_f1']:.4f}")
 
 # number of selected features
 num_feat = fmdl['nf']
@@ -114,4 +136,3 @@ ax.set_ylabel('Fitness')
 ax.set_title('PSO')
 ax.grid()
 plt.show()
-

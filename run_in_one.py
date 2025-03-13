@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import KFold
-from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, precision_score, matthews_corrcoef
+from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, precision_score, matthews_corrcoef, f1_score
 from sklearn.feature_selection import mutual_info_classif, chi2, SelectKBest
 from sklearn.preprocessing import LabelEncoder
 import importlib
@@ -14,16 +14,16 @@ import matplotlib.pyplot as plt
 import traceback
 
 # # Define algorithms to run
-# algorithms1 = ["ibka1h", "ibka2h", "ibka3h"]
+algorithms1 = []
 # algorithms2 = ['gwo','gwos','gwo8s','gwo8h','gwo8l','gwo12s','gwo12h','gwo12l']
 # algorithms3  = ["woa", "ja", "pso", "sca", "ssa", "gwo", "bka",'ba','bka','cs','de','fa','fpa','ga']
-# algorithms4 = ['gwo1','gwo3','gwo4','gwo6','gwo7','gwo8','gwo9','gwo10','gwo11','gwo12','gwo13','gwo14','gwo16','gwo17','gwosca','sogwo']
-# algorithms5 = ['ala','alaGgwo','alaImprove1','alaImprove2','alaImprove3','alaImprove4','alaAgwo','alaFgwo copy','alaFgwo']
-# algorithms = set()
-# algorithmsall = algorithms1 + algorithms2 + algorithms3+ algorithms4+algorithms5
-# for alg in algorithmsall:
-#     algorithms.add(alg)
-algorithms = ['gwo3s','gwo3h','gwo3l','gwo']
+algorithms4 = ['gwo1','gwo3','gwo4','gwo6','gwo7','gwo8','gwo9','gwo10','gwo11','gwo12','gwo13','gwo14','gwo16','gwo17','gwosca','sogwo']
+# algorithms5 = ['ala']
+algorithms = set()
+algorithmsall = algorithms1+algorithms4
+for alg in algorithmsall:
+    algorithms.add(alg)
+# algorithms = ['ala']
 print(algorithms)
 # Function to run the algorithm and collect metrics
 def run_algorithm(algo, train_index, test_index, feat, label,opts):
@@ -57,31 +57,41 @@ def run_algorithm(algo, train_index, test_index, feat, label,opts):
         k       = opts['k']
         mdl = KNeighborsClassifier(n_neighbors=k)
         mdl.fit(x_train, y_train)
-
+        
         # Calculate metrics
         y_pred = mdl.predict(x_valid)
-        Acc = accuracy_score(y_valid, y_pred)
-        tn, fp, fn, tp = confusion_matrix(y_valid, y_pred).ravel()
-        sensitivity = recall_score(y_valid, y_pred, pos_label=0)
-        precision = precision_score(y_valid, y_pred, pos_label=0)
-        specificity = tn / (tn + fp)
-        mcc = matthews_corrcoef(y_valid, y_pred)
+        cm = confusion_matrix(y_valid, y_pred)
+        num_classes = len(np.unique(y_valid))
+        
+        # Per-class metrics
+        metrics = {}
+        for i in range(num_classes):
+            metrics[f"{i}_precision"] = precision_score(y_valid, y_pred, average=None)[i]
+            metrics[f"{i}_recall"] = recall_score(y_valid, y_pred, average=None)[i]
+            metrics[f"{i}_f1"] = f1_score(y_valid, y_pred, average=None)[i]
+        
+        # Overall metrics
+        metrics["accuracy"] = accuracy_score(y_valid, y_pred)
+        metrics["macro_precision"] = precision_score(y_valid, y_pred, average='macro')
+        metrics["macro_recall"] = recall_score(y_valid, y_pred, average='macro')
+        metrics["macro_f1"] = f1_score(y_valid, y_pred, average='macro')
+        metrics["mcc"] = matthews_corrcoef(y_valid, y_pred)
 
         num_feat = fmdl['nf']
         curve = fmdl['c'].tolist()  # Convert numpy array to list for JSON serialization
 
-        return {
+        result = {
             "Algorithm": algo,
             "Fold": fold,
-            "Accuracy": Acc,
-            "Sensitivity": sensitivity,
-            "Precision": precision,
-            "Specificity": specificity,
-            "MCC": mcc,
+            "Confusion_Matrix": cm.tolist(),
             "Number of Features": num_feat,
             "selected_features": sf.tolist(),
             "Convergence Curve": curve
         }
+        # Add all metrics to result
+        result.update(metrics)
+        
+        return result
 
 def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0 , w = 0.7, check_cec = False):
     if check_cec:
@@ -90,7 +100,7 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0 , w 
         opts['ub'] = 100
         opts['N']  = 30
         opts['T']  = 1000
-        opts['dim']= 30
+        opts['dim']= 100
         opts['runcec'] = True
         opts['selectedFunIndex'] = 0
         totalRun   = 30
@@ -113,6 +123,8 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0 , w 
             data = pd.read_csv(r'./data/merged_df13.csv')
         elif i == 2:
             data = pd.read_csv(r'./data/merged_df23.csv')
+        elif i == 3:
+            data = pd.read_csv(r'./data/merged_df123.csv')
         else:
             print("Invalid input")
             return
@@ -203,7 +215,7 @@ def worker(i, pre_feature_selection_algorithm='none', feature_drop_rate = 0 , w 
                         result['time'] = etime-stime
                         fold_results.append(result)
                         num_feat.append(result['Number of Features'])
-                        accuracy_scores.append(result['Accuracy'])
+                        accuracy_scores.append(result['accuracy'])
                     except Exception as e:
                         print(f"Error in fold {fold + 1} of run {j + 1} with algorithm {algo}: {e}")
                         traceback.print_exc()  # 打印完整的错误栈跟踪信息              
@@ -246,7 +258,7 @@ if __name__ == '__main__':
     
     # worker(0, 'none', 0.2,0.4)
     # worker(0,'none',0.2,0.3)
-    worker(0,'none',0.2,0.4)
+    worker(3,'none',0.2,0.4,True)
     # worker(1, 'none', 0.2)
     # worker(2, 'none', 0.2)
     
@@ -269,4 +281,3 @@ if __name__ == '__main__':
     # 1	experiment_results_1_chi2_0.2.json	23.8800	0.9613	19.05
     
     # worker(0, 'mi', 0.2)
-    

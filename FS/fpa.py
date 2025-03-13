@@ -54,8 +54,8 @@ def levy_distribution(beta, dim):
 
 def jfs(xtrain, ytrain, opts):
     # Parameters
-    ub     = 1
-    lb     = 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
     thres  = 0.5
     beta   = 1.5    # levy component
     P      = 0.8    # switch probability
@@ -68,7 +68,7 @@ def jfs(xtrain, ytrain, opts):
         beta = opts['beta'] 
         
     # Dimension
-    dim = np.size(xtrain, 1)
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)
     if np.size(lb) == 1:
         ub = ub * np.ones([1, dim], dtype='float')
         lb = lb * np.ones([1, dim], dtype='float')
@@ -85,7 +85,7 @@ def jfs(xtrain, ytrain, opts):
     fitG  = float('inf')
     
     for i in range(N):
-        fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)
+        fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(X[i,:],lb,ub))
         if fit[i,0] < fitG:
             Xgb[0,:] = X[i,:]
             fitG     = fit[i,0]
@@ -132,7 +132,7 @@ def jfs(xtrain, ytrain, opts):
         
         # Greedy selection
         for i in range(N):
-            Fnew = Fun(xtrain, ytrain, Xbin[i,:], opts)
+            Fnew = Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(Xnew[i,:],lb,ub))
             if Fnew <= fit[i,0]:
                 X[i,:]   = Xnew[i,:]
                 fit[i,0] = Fnew            

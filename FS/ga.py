@@ -38,8 +38,8 @@ def roulette_wheel(prob):
 
 def jfs(xtrain, ytrain, opts):
     # Parameters
-    ub       = 1
-    lb       = 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
     thres    = 0.5    
     CR       = 0.8     # crossover rate
     MR       = 0.01    # mutation rate
@@ -52,7 +52,7 @@ def jfs(xtrain, ytrain, opts):
         MR   = opts['MR']  
  
      # Dimension
-    dim = np.size(xtrain, 1)
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)
     if np.size(lb) == 1:
         ub = ub * np.ones([1, dim], dtype='float')
         lb = lb * np.ones([1, dim], dtype='float')
@@ -69,7 +69,7 @@ def jfs(xtrain, ytrain, opts):
     fitG  = float('inf')
     
     for i in range(N):
-        fit[i,0] = Fun(xtrain, ytrain, X[i,:], opts)
+        fit[i,0] = Fun(xtrain, ytrain, X[i,:], opts,np.clip(X[i,:],lb,ub))
         if fit[i,0] < fitG:
             Xgb[0,:] = X[i,:]
             fitG     = fit[i,0]
@@ -122,7 +122,7 @@ def jfs(xtrain, ytrain, opts):
         # Fitness
         Fnew = np.zeros([2 * Nc, 1], dtype='float')
         for i in range(2 * Nc):
-            Fnew[i,0] = Fun(xtrain, ytrain, Xnew[i,:], opts)
+            Fnew[i,0] = Fun(xtrain, ytrain, Xnew[i,:], opts,np.clip(Xnew[i,:],lb,ub))
             if Fnew[i,0] < fitG:
                 Xgb[0,:] = Xnew[i,:]
                 fitG     = Fnew[i,0]

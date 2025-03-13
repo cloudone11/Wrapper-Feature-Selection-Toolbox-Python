@@ -170,7 +170,7 @@ pop_size = 30
 max_iter = 100
 dim = 10
 lb = -10
-ub = 10
+ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 10
 
 # 运行原始GWO
 original_scores = original_gwo(pop_size, max_iter, dim, lb, ub)

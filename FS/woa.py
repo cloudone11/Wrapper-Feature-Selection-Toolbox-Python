@@ -37,8 +37,8 @@ def boundary(x, lb, ub):
 
 def jfs(xtrain, ytrain, opts):
     # Parameters
-    ub    = 1
-    lb    = 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
     thres = 0.5
     b     = 1       # constant
     
@@ -48,7 +48,7 @@ def jfs(xtrain, ytrain, opts):
         b    = opts['b']
     
     # Dimension
-    dim = np.size(xtrain, 1)
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)
     if np.size(lb) == 1:
         ub = ub * np.ones([1, dim], dtype='float')
         lb = lb * np.ones([1, dim], dtype='float')
@@ -65,7 +65,7 @@ def jfs(xtrain, ytrain, opts):
     fitG = float('inf')
     
     for i in range(N):
-        fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts)
+        fit[i,0] = Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(X[i,:],lb,ub))
         if fit[i,0] < fitG:
             Xgb[0,:] = X[i,:]
             fitG     = fit[i,0]
@@ -131,7 +131,7 @@ def jfs(xtrain, ytrain, opts):
         
         # Fitness
         for i in range(N):
-            fit[i,0]= Fun(xtrain, ytrain, Xbin[i,:], opts)
+            fit[i,0]= Fun(xtrain, ytrain, Xbin[i,:], opts,np.clip(X[i,:],lb,ub))
             if fit[i,0] < fitG:
                 Xgb[0,:] = X[i,:]
                 fitG     = fit[i,0]

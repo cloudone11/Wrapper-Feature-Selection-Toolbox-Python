@@ -156,12 +156,12 @@ class BKA:
 
 def jfs(xtrain, ytrain, opts):
     # Parameters
-    ub = 1
-    lb = 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
     thres = 0.5
     N = opts['N']
     max_iter = opts['T']
-    dim = np.size(xtrain, 1)
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)
     if np.size(lb) == 1:
         ub = ub * np.ones([1, dim], dtype='float')
         lb = lb * np.ones([1, dim], dtype='float')
@@ -174,7 +174,7 @@ def jfs(xtrain, ytrain, opts):
     while t < max_iter:
         Xbin = binary_conversion(X, thres, N, dim)
         for i in range(N):
-            fit[i, 0] = Fun(xtrain, ytrain, Xbin[i, :], opts)
+            Fun(xtrain, ytrain, Xbin, opts,np.clip(X[i,:],lb,ub))
             if fit[i, 0] < fitR:
                 Xrb[0, :] = X[i, :]
                 fitR = fit[i, 0]
@@ -193,7 +193,8 @@ def jfs(xtrain, ytrain, opts):
             else:
                 XPosNew = X[i] * (n * (2 * r - 1) + 1)
             XPosNew = np.clip(XPosNew, lb, ub)
-            XFit_New = Fun(xtrain, ytrain, binary_conversion(XPosNew.reshape(1, -1), thres, 1, dim)[0], opts)
+        
+            XFit_New = Fun(xtrain, ytrain, binary_conversion(XPosNew.reshape(1, -1), thres, 1, dim)[0], opts,np.clip(XPosNew,lb,ub))
             if XFit_New < fit[i, 0]:
                 X[i] = XPosNew
                 fit[i, 0] = XFit_New
@@ -209,7 +210,7 @@ def jfs(xtrain, ytrain, opts):
             else:
                 XPosNew = X[i] + cauchy_value * (XLeader_Pos - m * X[i])
             XPosNew = np.clip(XPosNew, lb, ub)
-            XFit_New = Fun(xtrain, ytrain, binary_conversion(XPosNew.reshape(1, -1), thres, 1, dim)[0], opts)
+            XFit_New = Fun(xtrain, ytrain, binary_conversion(XPosNew.reshape(1, -1), thres, 1, dim)[0], opts,XPosNew)
             if XFit_New < fit[i, 0]:
                 X[i] = XPosNew
                 fit[i, 0] = XFit_New

@@ -1,0 +1,5 @@
+Fun(xtrain, ytrain, Xbin, opts,np.clip(Xnew[i,:],lb,ub))
+ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
+dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)
+Fun(xtrain, ytrain, Xbin, opts,np.clip(X[i,:],lb,ub))

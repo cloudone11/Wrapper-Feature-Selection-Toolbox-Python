@@ -24,15 +24,15 @@ def jfs(xtrain, ytrain, opts):
     :return: Best feature subset, convergence curve
     """
     # Parameters
-    ub    = 1
-    lb    = 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
     thres = 0.5
     
     N        = opts['N']
     max_iter = opts['T']
     Max_iter = max_iter
     # Dimension
-    dim = np.size(xtrain, 1)
+    dim = 100        if ('runcec' in opts and opts['runcec'] == True) else np.size(xtrain, 1)
     
     # Define fobj as Fun from gwo.py
     def fobj(features,opts=opts,xtrain=xtrain,ytrain=ytrain):
@@ -119,8 +119,8 @@ def main():
         'N': 20,  # Number of agents
         'T': 100  # Maximum iterations
     }
-    lb = 0
-    ub = 1
+    lb = opts['lb']  if ('runcec' in opts and opts['runcec'] == True) else 0
+    ub = opts['ub']  if ('runcec' in opts and opts['runcec'] == True) else 1
     dim = 10  # Number of features
     N = opts['N']
     Max_iter = opts['T']

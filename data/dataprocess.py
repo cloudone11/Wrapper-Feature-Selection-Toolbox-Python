@@ -23,10 +23,11 @@ merged_df12 = pd.concat([df1, df2], ignore_index=True)
 merged_df13 = pd.concat([df1, df3], ignore_index=True)
 # 合并类别2和类别3
 merged_df23 = pd.concat([df2, df3], ignore_index=True)
-
+# 合并三个类别
+merged_df123 = pd.concat([df1,df2,df3],ignore_index=True)
 # 保存合并后的数据集到新的CSV文件
 merged_df12.to_csv('merged_df12.csv', index=False)
 merged_df13.to_csv('merged_df13.csv', index=False)
 merged_df23.to_csv('merged_df23.csv', index=False)
-
+merged_df123.to_csv('merged_df123.csv',index=False)
 print("合并完成，生成了三个新的CSV文件：merged_df12.csv, merged_df13.csv, merged_df23.csv")
